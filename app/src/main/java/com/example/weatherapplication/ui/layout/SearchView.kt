@@ -20,6 +20,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.weatherapplication.model.pojo.Location
 
 @Composable
 fun SearchEditText(
@@ -67,51 +68,51 @@ fun SearchEditText(
 
 @Composable
 fun SearchItemView(
-    cityName: String, countryName: String, onClickEvent: (String) -> Unit = {}
+    location: Location, onClickEvent: (Location) -> Unit = {}
 ) {
     Row(
         modifier = Modifier
-            .clickable { onClickEvent(cityName) }
+            .clickable { onClickEvent(location) }
             .padding(5.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = cityName, fontSize = 18.sp, color = Color.Black)
+        Text(text = location.name, fontSize = 18.sp, color = Color.Black)
         Spacer(modifier = Modifier.width(20.dp))
-        Text(text = countryName, fontSize = 18.sp, color = Color.Black)
+        Text(text = location.country, fontSize = 18.sp, color = Color.Black)
     }
 }
 
 @Composable
 fun SearchItemListView(
-    listOfItems: MutableState<List<Pair<String, String>>>
+    listOfItems: MutableState<List<Location>>
 ) {
-    LazyColumn(content = {
+    LazyColumn {
         items(listOfItems.value) {
-            item: Pair<String, String> -> SearchItemView(cityName = item.first, countryName = item.second)
+                item: Location -> SearchItemView(location = item)
         }
-    })
+    }
 }
 
 @Preview
 @Composable
 fun SearchViewPreview() {
-    val listOfItems = remember {
-        mutableStateOf(
-            listOf(
-                Pair("London", "UK"),
-                Pair("Moscow", "RU"),
-                Pair("Washington", "US"),
-                Pair("Tokyo", "JP"),
-                Pair("Seoul", "SK"),
-            )
-        )
-    }
-
-    Column {
-        SearchEditText()
-        SearchItemListView(listOfItems)
-    }
+//    val listOfItems = remember {
+//        mutableStateOf(
+//            listOf(
+//                Location("London", "UK"),
+//                Location("Moscow", "RU"),
+//                Location("Washington", "US"),
+//                Location("Tokyo", "JP"),
+//                Location("Seoul", "SK"),
+//            )
+//        )
+//    }
+//
+//    Column {
+//        SearchEditText()
+//        SearchItemListView(listOfItems)
+//    }
 }
