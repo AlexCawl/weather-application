@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun EditTextWithClearButton(
+fun EditText(
     text: String = "",
     onTextChange: (String) -> Unit = {},
     colorScheme: Colors = MaterialTheme.colors
@@ -55,6 +55,6 @@ fun EditTextWithClearButton(
 
 @Preview
 @Composable
-fun PreviewEditTextWithClearButton() {
-    EditTextWithClearButton()
+fun EditTextPreview() {
+    EditText()
 }
