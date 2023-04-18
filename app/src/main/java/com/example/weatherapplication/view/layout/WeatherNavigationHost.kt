@@ -1,18 +1,18 @@
-package com.example.weatherapplication.ui.layout
+package com.example.weatherapplication.view.layout
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.weatherapplication.service.view_model.SearchService
-import com.example.weatherapplication.ui.screen.OptionScreen
-import com.example.weatherapplication.ui.screen.SearchScreen
-import com.example.weatherapplication.ui.screen.WeatherScreen
+import com.example.weatherapplication.view.screen.OptionScreen
+import com.example.weatherapplication.view.screen.SearchScreen
+import com.example.weatherapplication.view.screen.WeatherScreen
+import com.example.weatherapplication.view_model.LocationViewModel
 
 @Composable
 fun WeatherNavigationHost(
-    searchService: SearchService,
+    locationManager: LocationViewModel,
     navController: NavHostController = rememberNavController(),
     startDestination: String = Screen.SEARCH.toString()
 ) {
@@ -29,7 +29,7 @@ fun WeatherNavigationHost(
         }
         composable(Screen.SEARCH.toString()) {
             SearchScreen(
-                searchService = searchService,
+                locationManager = locationManager,
                 onNavigationItemSelected = router,
             )
         }

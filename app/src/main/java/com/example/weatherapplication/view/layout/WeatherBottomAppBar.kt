@@ -1,4 +1,4 @@
-package com.example.weatherapplication.ui.layout
+package com.example.weatherapplication.view.layout
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

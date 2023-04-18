@@ -1,9 +1,9 @@
-package com.example.weatherapplication.model.retrofit
+package com.example.weatherapplication.model.repository
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitFactory {
+class RepositoryFactory {
     companion object {
         private const val baseURL: String = "http://api.openweathermap.org/"
         private val connector: Retrofit = Retrofit.Builder()
