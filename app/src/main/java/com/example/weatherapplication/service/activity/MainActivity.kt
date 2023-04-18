@@ -3,12 +3,15 @@ package com.example.weatherapplication.service.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapplication.service.view_model.SearchService
 import com.example.weatherapplication.ui.layout.WeatherNavigationHost
 import com.example.weatherapplication.ui.theme.WeatherApplicationTheme
 
 class MainActivity : ComponentActivity() {
-    private val searchService: SearchService = SearchService()
+    private val searchService: SearchService by lazy {
+        ViewModelProvider(this)[SearchService::class.java]
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

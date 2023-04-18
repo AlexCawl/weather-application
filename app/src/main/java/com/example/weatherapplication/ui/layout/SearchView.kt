@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,21 +25,25 @@ import com.example.weatherapplication.model.pojo.Location
 
 @Composable
 fun SearchEditText(
-    onTextChangeEvent: (String) -> Unit = {},
+    query: MutableState<String>,
     onSearchPressedEvent: (String) -> Unit = {},
+    onClearPressedEvent: (String) -> Unit = {},
+    onTextChangedEvent: (String) -> Unit = {},
 ) {
-    var value: String by remember { mutableStateOf("") }
-
     TextField(
-        value = value,
+        value = query.value,
         onValueChange = {
-            value = it
-            onTextChangeEvent(it)
+            query.value = it
+            onTextChangedEvent(it)
         },
         modifier = Modifier.fillMaxWidth(),
         textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
         leadingIcon = {
-            IconButton(onClick = { onSearchPressedEvent(value) }) {
+            IconButton(
+                onClick = {
+                    onSearchPressedEvent(query.value)
+                }
+            ) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
@@ -49,8 +54,13 @@ fun SearchEditText(
             }
         },
         trailingIcon = {
-            if (value != "") {
-                IconButton(onClick = { value = "" }) {
+            if (query.value != "") {
+                IconButton(
+                    onClick = {
+                        query.value = ""
+                        onClearPressedEvent(query.value)
+                    }
+                ) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = null,
@@ -87,10 +97,10 @@ fun SearchItemView(
 
 @Composable
 fun SearchItemListView(
-    listOfItems: MutableState<List<Location>>
+    listOfItems: SnapshotStateList<Location>
 ) {
     LazyColumn {
-        items(listOfItems.value) {
+        items(listOfItems) {
                 item: Location -> SearchItemView(location = item)
         }
     }

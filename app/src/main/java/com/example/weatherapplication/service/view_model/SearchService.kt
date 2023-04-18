@@ -1,6 +1,10 @@
 package com.example.weatherapplication.service.view_model
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import com.example.weatherapplication.model.pojo.Location
 import com.example.weatherapplication.model.retrofit.LocationService
@@ -14,29 +18,38 @@ class SearchService : ViewModel() {
         .getInstance()
         .create(LocationService::class.java)
 
+    val listOfHints: SnapshotStateList<Location> = mutableStateListOf()
+    val searchQuery: MutableState<String> = mutableStateOf("")
+
     private val apiKey: String = "05668a5140f7153f74f85c448be1ca22"
     private val limit: Int = 5
 
-    fun getLocations(onGetLocationsEvent: (List<Location>) -> Unit, name: String) {
-        val call = locationService.getLocations(name, limit, apiKey)
-        call.enqueue(object : Callback<List<Location>> {
-            override fun onResponse(call: Call<List<Location>>, response: Response<List<Location>>) {
-                Log.println(
-                    Log.INFO,
-                    this::class.java.toString(),
-                    "${response.code()} ${response.message()} ${response.body()}"
-                )
-                onGetLocationsEvent(response.body())
-            }
+    fun updateLocationHints() {
+        if (searchQuery.value.isNotBlank()) {
+            val call = locationService.getLocations(searchQuery.value, limit, apiKey)
 
-            override fun onFailure(call: Call<List<Location>>, t: Throwable) {
-                Log.println(
-                    Log.ERROR,
-                    this::class.java.toString(),
-                    t.stackTraceToString()
-                )
-                call.cancel()
-            }
-        })
+            call.enqueue(object : Callback<List<Location>> {
+                override fun onResponse(call: Call<List<Location>>, response: Response<List<Location>>) {
+                    Log.println(
+                        Log.INFO,
+                        this::class.java.toString(),
+                        "${response.code()} ${response.message()} ${response.body()}"
+                    )
+                    if (response.body() != null) {
+                        listOfHints.clear()
+                        listOfHints.addAll(response.body())
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Location>>, t: Throwable) {
+                    Log.println(
+                        Log.ERROR,
+                        this::class.java.toString(),
+                        t.stackTraceToString()
+                    )
+                    call.cancel()
+                }
+            })
+        }
     }
 }
