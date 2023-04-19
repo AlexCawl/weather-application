@@ -76,7 +76,7 @@ fun SearchEditText(
 
 @Composable
 fun SearchItemView(
-    location: Location, onClickEvent: (Location) -> Unit = {}
+    location: Location, onClickEvent: (Location) -> Unit
 ) {
     Box(modifier = Modifier
         .padding(5.dp)
@@ -121,11 +121,11 @@ fun SearchItemView(
 
 @Composable
 fun SearchItemListView(
-    hints: SnapshotStateList<Location>
+    hints: SnapshotStateList<Location>, onClickEvent: (Location) -> Unit
 ) {
     LazyColumn {
         items(hints) { item: Location ->
-            SearchItemView(location = item)
+            SearchItemView(location = item, onClickEvent)
         }
     }
 }
@@ -145,6 +145,6 @@ fun SearchViewPreview() {
 
     Column {
         SearchEditText(query, {}, {}, {})
-        SearchItemListView(hints)
+        SearchItemListView(hints) {}
     }
 }

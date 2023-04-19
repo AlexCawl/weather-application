@@ -29,7 +29,7 @@ class LocationService {
         try {
             val requestQuery: String = validateQuery(query)
             val call: Call<List<Location>> = locationRepository
-                .getLocations(requestQuery, IdentifierService.hintLimit, IdentifierService.id)
+                .getLocationList(requestQuery, IdentifierService.hintLimit, IdentifierService.id)
 
             call.enqueue(object : Callback<List<Location>> {
                 override fun onResponse(call: Call<List<Location>>, response: Response<List<Location>>) {

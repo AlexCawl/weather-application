@@ -9,10 +9,12 @@ import com.example.weatherapplication.view.screen.OptionScreen
 import com.example.weatherapplication.view.screen.SearchScreen
 import com.example.weatherapplication.view.screen.WeatherScreen
 import com.example.weatherapplication.view_model.LocationViewModel
+import com.example.weatherapplication.view_model.WeatherViewModel
 
 @Composable
 fun WeatherNavigationHost(
     locationManager: LocationViewModel,
+    weatherManager: WeatherViewModel,
     navController: NavHostController = rememberNavController(),
     startDestination: String = Screen.SEARCH.toString()
 ) {
@@ -30,6 +32,7 @@ fun WeatherNavigationHost(
         composable(Screen.SEARCH.toString()) {
             SearchScreen(
                 locationManager = locationManager,
+                weatherManager = weatherManager,
                 onNavigationItemSelected = router,
             )
         }

@@ -7,10 +7,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapplication.view.layout.WeatherNavigationHost
 import com.example.weatherapplication.view.theme.WeatherApplicationTheme
 import com.example.weatherapplication.view_model.LocationViewModel
+import com.example.weatherapplication.view_model.WeatherViewModel
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: LocationViewModel by lazy {
+    private val locationViewModel: LocationViewModel by lazy {
         ViewModelProvider(this)[LocationViewModel::class.java]
+    }
+    private val weatherViewModel: WeatherViewModel by lazy {
+        ViewModelProvider(this)[WeatherViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +23,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             WeatherApplicationTheme {
                 WeatherNavigationHost(
-                    locationManager = viewModel
+                    locationManager = locationViewModel,
+                    weatherManager = weatherViewModel,
                 )
             }
         }

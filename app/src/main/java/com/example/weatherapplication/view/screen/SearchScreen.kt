@@ -9,15 +9,14 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.weatherapplication.model.data.Location
-import com.example.weatherapplication.view.layout.Screen
-import com.example.weatherapplication.view.layout.SearchEditText
-import com.example.weatherapplication.view.layout.SearchItemListView
-import com.example.weatherapplication.view.layout.WeatherBottomAppBar
+import com.example.weatherapplication.view.layout.*
 import com.example.weatherapplication.view_model.LocationViewModel
+import com.example.weatherapplication.view_model.WeatherViewModel
 
 @Composable
 fun SearchScreen(
     locationManager: LocationViewModel,
+    weatherManager: WeatherViewModel,
     onNavigationItemSelected: (Screen) -> Unit
 ) {
     Scaffold(bottomBar = {
@@ -41,7 +40,17 @@ fun SearchScreen(
                     locationManager.updateHints()
                 }
             )
-            SearchItemListView(hints)
+            SearchItemListView(
+                hints = hints,
+                onClickEvent = { location ->
+                    weatherManager.updateCurrentWeather(location)
+                    locationManager.hints.clear()
+                    locationManager.query.value = ""
+                }
+            )
+            WeatherView(
+                weatherManager = weatherManager
+            )
         }
     }
 }

@@ -7,5 +7,9 @@ import retrofit2.http.Query
 
 interface LocationRepository {
     @GET("geo/1.0/direct")
-    fun getLocations(@Query("q") name: String, @Query("limit") limit: Int = 5, @Query("appid") id: String): Call<List<Location>>
+    fun getLocationList(
+        @Query("q") name: String,
+        @Query("limit") limit: Int = 5,
+        @Query("appid") id: String
+    ): Call<List<Location>>
 }
