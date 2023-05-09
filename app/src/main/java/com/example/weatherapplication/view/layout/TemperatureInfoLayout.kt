@@ -9,8 +9,11 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.weatherapplication.R
 import com.example.weatherapplication.view_model.WeatherViewModel
 
 @Composable
@@ -18,7 +21,7 @@ fun TemperatureInfo(
     viewModel: WeatherViewModel
 ) {
     val temperature: String = "18°"
-    val weatherDescription: String = "Thunderstorm"
+    val weatherDescription: String = "Cloudy"
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,8 +51,9 @@ fun TemperatureInfo(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxSize(),
-            imageVector = Icons.Default.Search,
-            contentDescription = null
+            imageVector = ImageVector.vectorResource(id = R.drawable.round_cloud_24),
+            contentDescription = null,
+            tint = MaterialTheme.colors.onBackground
         )
     }
 }
