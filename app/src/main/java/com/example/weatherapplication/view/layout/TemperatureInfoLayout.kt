@@ -11,9 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.weatherapplication.view_model.WeatherViewModel
 
 @Composable
-fun TemperatureInfo() {
+fun TemperatureInfo(
+    viewModel: WeatherViewModel
+) {
+    val temperature: String = "18°"
+    val weatherDescription: String = "Thunderstorm"
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -27,13 +32,13 @@ fun TemperatureInfo() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "18°",
+                text = temperature,
                 fontSize = 60.sp,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colors.onBackground
             )
             Text(
-                text = "Thunderstorm",
+                text = weatherDescription,
                 fontSize = 14.sp,
                 color = MaterialTheme.colors.onSurface
             )

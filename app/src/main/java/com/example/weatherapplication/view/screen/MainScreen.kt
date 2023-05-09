@@ -11,8 +11,9 @@ import androidx.compose.ui.unit.dp
 import com.example.weatherapplication.view.layout.ForecastInfo
 import com.example.weatherapplication.view.layout.MainScreenTopBar
 import com.example.weatherapplication.view.layout.TemperatureInfo
-import com.example.weatherapplication.view.layout.WeatherInfoBar
+import com.example.weatherapplication.view.layout.WeatherInfo
 import com.example.weatherapplication.view.theme.WeatherApplicationTheme
+import com.example.weatherapplication.view_model.WeatherViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalMaterialApi
@@ -21,7 +22,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 fun MainScreen() {
     Scaffold(
         backgroundColor = MaterialTheme.colors.background,
-        topBar = { MainScreenTopBar() }
+        topBar = { MainScreenTopBar(WeatherViewModel()) }
     ) {
         Box(
             modifier = Modifier
@@ -29,19 +30,19 @@ fun MainScreen() {
                 .padding(15.dp)
         ) {
             Column {
-                TemperatureInfo()
+                TemperatureInfo(WeatherViewModel())
                 Spacer(
                     modifier = Modifier
                         .height(15.dp)
                         .fillMaxWidth()
                 )
-                WeatherInfoBar()
+                WeatherInfo(WeatherViewModel())
                 Spacer(
                     modifier = Modifier
                         .height(15.dp)
                         .fillMaxWidth()
                 )
-                ForecastInfo()
+                ForecastInfo(WeatherViewModel())
             }
         }
     }

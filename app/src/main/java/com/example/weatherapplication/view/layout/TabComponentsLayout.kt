@@ -1,48 +1,44 @@
 package com.example.weatherapplication.view.layout
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.weatherapplication.view.theme.WeatherApplicationTheme
 import com.example.weatherapplication.view_model.WeatherViewModel
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
-sealed class WeatherForecastTabItem(
+@ExperimentalMaterialApi
+@ExperimentalPagerApi
+sealed class ForecastTabItem(
     val title: String,
     val content: @Composable (WeatherViewModel) -> Unit
 ) {
-    object Now : WeatherForecastTabItem(
-        title = "Now",
+    object Today : ForecastTabItem(
+        title = "Today",
         content = {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Red))
+            val list = remember { it.forecastHourly }
+            ForecastContent(list = list, size = 8)
         }
     )
 
-    object Tomorrow : WeatherForecastTabItem(
+    object Tomorrow : ForecastTabItem(
         title = "Tomorrow",
         content = {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Blue))
+            val list = remember { it.forecastHourly }
+            ForecastContent(list = list, size = 16)
         }
     )
 
-    object Week : WeatherForecastTabItem(
+    object Week : ForecastTabItem(
         title = "Week",
         content = {
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Green))
+            val list = remember { it.forecastHourly }
+            ForecastContent(list = list, size = 40)
         }
     )
 }
@@ -51,7 +47,7 @@ sealed class WeatherForecastTabItem(
 @ExperimentalMaterialApi
 @Composable
 fun TabSelector(
-    tabs: List<WeatherForecastTabItem>,
+    tabs: List<ForecastTabItem>,
     pagerState: PagerState
 ) {
     val scope = rememberCoroutineScope()
@@ -79,10 +75,11 @@ fun TabSelector(
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun TabContent(
-    tabs: List<WeatherForecastTabItem>,
+    tabs: List<ForecastTabItem>,
     pagerState: PagerState,
     viewModel: WeatherViewModel
 ) {
@@ -98,9 +95,9 @@ fun TabContent(
 fun TabsPreview() {
     WeatherApplicationTheme {
         val tabs = listOf(
-            WeatherForecastTabItem.Now,
-            WeatherForecastTabItem.Tomorrow,
-            WeatherForecastTabItem.Week
+            ForecastTabItem.Today,
+            ForecastTabItem.Tomorrow,
+            ForecastTabItem.Week
         )
         val pagerState = rememberPagerState(pageCount = tabs.size)
         Column {

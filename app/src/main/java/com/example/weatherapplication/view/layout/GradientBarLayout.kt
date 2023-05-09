@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 
 @Composable
-fun GradientWeatherStatistic(
+fun GradientBar(
     progress: Float,
     modifier: Modifier = Modifier,
     indent: Float = 0.0f,

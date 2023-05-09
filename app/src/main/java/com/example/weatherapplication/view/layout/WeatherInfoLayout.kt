@@ -1,9 +1,8 @@
 package com.example.weatherapplication.view.layout
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -15,9 +14,42 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.weatherapplication.view_model.WeatherViewModel
 
 @Composable
 fun WeatherInfo(
+    viewModel: WeatherViewModel
+) {
+    val windSpeed: String = "10 m/s"
+    val humidity: String = "98 %"
+    val rainProbability: String = "100%"
+    Row(
+        modifier = Modifier
+            .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(10.dp))
+            .padding(10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        WeatherInfoComponent(
+            modifier = Modifier.weight(1f),
+            dataText = windSpeed,
+            descriptionText = "Wind"
+        )
+        WeatherInfoComponent(
+            modifier = Modifier.weight(1f),
+            dataText = humidity,
+            descriptionText = "Humidity"
+        )
+        WeatherInfoComponent(
+            modifier = Modifier.weight(1f),
+            dataText = rainProbability,
+            descriptionText = "Rain"
+        )
+    }
+}
+
+@Composable
+fun WeatherInfoComponent(
     modifier: Modifier,
     dataText: String,
     descriptionText: String
