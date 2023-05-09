@@ -11,8 +11,8 @@ import com.example.weatherapplication.model.service.LocationService
 class LocationViewModel : ViewModel() {
     private val locationService: LocationService = LocationService()
 
-    val hints: SnapshotStateList<Location> = mutableStateListOf()
-    val query: MutableState<String> = mutableStateOf("")
+    private val hints: SnapshotStateList<Location> = mutableStateListOf()
+    private val query: MutableState<String> = mutableStateOf("")
 
     fun updateHints() {
         locationService.updateLocations(hints, query.value)

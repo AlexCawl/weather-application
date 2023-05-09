@@ -2,7 +2,7 @@ package com.example.weatherapplication.model.data
 
 import com.google.gson.annotations.SerializedName
 
-data class CurrentWeather(
+data class ForecastCurrent(
     @SerializedName("coord") val coordinates: Coordinates,
     @SerializedName("weather") val weather: List<Weather>,
     @SerializedName("base") val base: String,
@@ -10,7 +10,8 @@ data class CurrentWeather(
     @SerializedName("visibility") val visibility: Int,
     @SerializedName("wind") val wind: Wind,
     @SerializedName("clouds") val clouds: Cloudiness,
-    @SerializedName("rain") val rain: Rain,
+    @SerializedName("rain") val rain: Rain?,
+    @SerializedName("snow") val snow: Snow?,
     @SerializedName("dt") val datetime: Long,
     @SerializedName("sys") val system: System,
     @SerializedName("timezone") val timezone: Long,
@@ -53,13 +54,11 @@ data class CurrentWeather(
         )
 
         data class Rain(
-            @SerializedName("1h") val oneHour: Double,
-            @SerializedName("3h") val threeHour: Double
+            @SerializedName("1h") val oneHour: Double, @SerializedName("3h") val threeHour: Double
         )
 
         data class Snow(
-            @SerializedName("1h") val oneHour: Double,
-            @SerializedName("3h") val threeHour: Double
+            @SerializedName("1h") val oneHour: Double, @SerializedName("3h") val threeHour: Double
         )
 
         data class System(

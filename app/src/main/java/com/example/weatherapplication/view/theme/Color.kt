@@ -2,7 +2,8 @@ package com.example.weatherapplication.view.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val BaseWhite = Color(0xFFF3F3F3)
+val DeepBlue = Color(0xFF21394E)
+val DarkBlue = Color(0xFF202329)
+val LightGray = Color(0xFF717374)
+val DarkGray = Color(0xFF1B1D1F)
