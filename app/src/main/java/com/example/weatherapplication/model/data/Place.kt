@@ -2,7 +2,7 @@ package com.example.weatherapplication.model.data
 
 import com.google.gson.annotations.SerializedName
 
-data class Location(
+data class Place(
     @SerializedName("name") val name: String,
     @SerializedName("local_names") val localNames: Map<String, String>,
     @SerializedName("lat") val latitude: Double,

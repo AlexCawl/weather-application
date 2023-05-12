@@ -12,11 +12,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapplication.R
-import com.example.weatherapplication.view_model.WeatherViewModel
+import com.example.weatherapplication.view_model.MainActivityViewModel
 
 @Composable
 fun MainScreenTopBar(
-    viewModel: WeatherViewModel,
+    viewModel: MainActivityViewModel,
     onClickOptionsEvent: () -> Unit = {}
 ) {
     val cityName: String = "Stuttgart"

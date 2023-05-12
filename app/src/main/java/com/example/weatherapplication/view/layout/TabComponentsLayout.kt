@@ -8,7 +8,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.weatherapplication.view.theme.WeatherApplicationTheme
-import com.example.weatherapplication.view_model.WeatherViewModel
+import com.example.weatherapplication.view_model.MainActivityViewModel
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 @ExperimentalPagerApi
 sealed class ForecastTabItem(
     val title: String,
-    val content: @Composable (WeatherViewModel) -> Unit
+    val content: @Composable (MainActivityViewModel) -> Unit
 ) {
     object Today : ForecastTabItem(
         title = "Today",
@@ -81,7 +81,7 @@ fun TabSelector(
 fun TabContent(
     tabs: List<ForecastTabItem>,
     pagerState: PagerState,
-    viewModel: WeatherViewModel
+    viewModel: MainActivityViewModel
 ) {
     HorizontalPager(state = pagerState) { page ->
         tabs[page].content(viewModel)
@@ -102,7 +102,7 @@ fun TabsPreview() {
         val pagerState = rememberPagerState(pageCount = tabs.size)
         Column {
             TabSelector(tabs = tabs, pagerState = pagerState)
-            TabContent(tabs = tabs, pagerState = pagerState, WeatherViewModel())
+            TabContent(tabs = tabs, pagerState = pagerState, MainActivityViewModel())
         }
     }
 }

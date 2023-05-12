@@ -14,11 +14,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.weatherapplication.view_model.WeatherViewModel
+import com.example.weatherapplication.view_model.MainActivityViewModel
 
 @Composable
 fun WeatherInfo(
-    viewModel: WeatherViewModel
+    viewModel: MainActivityViewModel
 ) {
     val windSpeed: String = "10 m/s"
     val humidity: String = "98 %"

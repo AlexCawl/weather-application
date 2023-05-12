@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,11 +12,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.weatherapplication.R
-import com.example.weatherapplication.view_model.WeatherViewModel
+import com.example.weatherapplication.view_model.MainActivityViewModel
 
 @Composable
 fun TemperatureInfo(
-    viewModel: WeatherViewModel
+    viewModel: MainActivityViewModel
 ) {
     val temperature: String = "18°"
     val weatherDescription: String = "Cloudy"

@@ -5,16 +5,16 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
-import com.example.weatherapplication.model.data.Location
-import com.example.weatherapplication.model.service.LocationService
+import com.example.weatherapplication.model.data.Place
+import com.example.weatherapplication.model.service.PlaceService
 
 class LocationViewModel : ViewModel() {
-    private val locationService: LocationService = LocationService()
+    private val placeService: PlaceService = PlaceService()
 
-    private val hints: SnapshotStateList<Location> = mutableStateListOf()
+    private val hints: SnapshotStateList<Place> = mutableStateListOf()
     private val query: MutableState<String> = mutableStateOf("")
 
     fun updateHints() {
-        locationService.updateLocations(hints, query.value)
+        placeService.updateLocations(hints, query.value)
     }
 }
