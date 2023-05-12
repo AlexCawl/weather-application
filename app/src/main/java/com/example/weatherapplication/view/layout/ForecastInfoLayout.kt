@@ -8,7 +8,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.weatherapplication.view_model.MainActivityViewModel
+import com.example.weatherapplication.view_model.WeatherViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 
@@ -16,7 +16,7 @@ import com.google.accompanist.pager.rememberPagerState
 @ExperimentalPagerApi
 @Composable
 fun ForecastInfo(
-    viewModel: MainActivityViewModel
+    viewModel: WeatherViewModel
 ) {
     val tabs = listOf(
         ForecastTabItem.Today,

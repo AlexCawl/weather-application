@@ -13,7 +13,7 @@ import retrofit2.Response
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
-class WeatherService {
+class ForecastService {
     private val weatherRepository: WeatherRepository = RepositoryFactory
         .getInstance()
         .create(WeatherRepository::class.java)
@@ -46,7 +46,7 @@ class WeatherService {
         call.enqueue(WeatherCallback(forecast, mappingFunction))
     }
 
-    fun updateHourlyForecast(
+    fun updateFutureForecast(
         forecast: SnapshotStateList<Forecast>,
         latitude: Double,
         longitude: Double

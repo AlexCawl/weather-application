@@ -6,13 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapplication.view.screen.MainScreen
+import com.example.weatherapplication.view.screen.WeatherScreen
 import com.example.weatherapplication.view.theme.WeatherApplicationTheme
-import com.example.weatherapplication.view_model.MainActivityViewModel
+import com.example.weatherapplication.view_model.WeatherViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 class MainActivity : ComponentActivity() {
-    private val mainActivityViewModel: MainActivityViewModel by lazy {
-        ViewModelProvider(this)[MainActivityViewModel::class.java]
+    private val weatherViewModel: WeatherViewModel by lazy {
+        ViewModelProvider(this)[WeatherViewModel::class.java]
     }
 
     @ExperimentalMaterialApi
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WeatherApplicationTheme {
-                MainScreen(mainActivityViewModel)
+                MainScreen(viewModel = weatherViewModel)
             }
         }
     }

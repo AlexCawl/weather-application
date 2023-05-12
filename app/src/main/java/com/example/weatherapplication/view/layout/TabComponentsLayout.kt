@@ -7,8 +7,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.weatherapplication.model.data.Forecast
 import com.example.weatherapplication.view.theme.WeatherApplicationTheme
-import com.example.weatherapplication.view_model.MainActivityViewModel
+import com.example.weatherapplication.view_model.WeatherViewModel
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
@@ -16,12 +17,12 @@ import kotlinx.coroutines.launch
 @ExperimentalPagerApi
 sealed class ForecastTabItem(
     val title: String,
-    val content: @Composable (MainActivityViewModel) -> Unit
+    val content: @Composable (WeatherViewModel) -> Unit
 ) {
     object Today : ForecastTabItem(
         title = "Today",
         content = {
-            val list = remember { it.forecastHourly }
+            val list = remember { mutableListOf<Forecast>() }
             ForecastContent(list = list, size = 8)
         }
     )
@@ -29,7 +30,7 @@ sealed class ForecastTabItem(
     object Tomorrow : ForecastTabItem(
         title = "Tomorrow",
         content = {
-            val list = remember { it.forecastHourly }
+            val list = remember { mutableListOf<Forecast>() }
             ForecastContent(list = list, size = 16)
         }
     )
@@ -37,7 +38,7 @@ sealed class ForecastTabItem(
     object Week : ForecastTabItem(
         title = "Week",
         content = {
-            val list = remember { it.forecastHourly }
+            val list = remember { mutableListOf<Forecast>() }
             ForecastContent(list = list, size = 40)
         }
     )
@@ -81,7 +82,7 @@ fun TabSelector(
 fun TabContent(
     tabs: List<ForecastTabItem>,
     pagerState: PagerState,
-    viewModel: MainActivityViewModel
+    viewModel: WeatherViewModel
 ) {
     HorizontalPager(state = pagerState) { page ->
         tabs[page].content(viewModel)
@@ -102,7 +103,7 @@ fun TabsPreview() {
         val pagerState = rememberPagerState(pageCount = tabs.size)
         Column {
             TabSelector(tabs = tabs, pagerState = pagerState)
-            TabContent(tabs = tabs, pagerState = pagerState, MainActivityViewModel())
+            TabContent(tabs = tabs, pagerState = pagerState, WeatherViewModel())
         }
     }
 }

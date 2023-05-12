@@ -12,14 +12,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapplication.R
-import com.example.weatherapplication.view_model.MainActivityViewModel
+import com.example.weatherapplication.view_model.WeatherViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
 
+@ExperimentalMaterialApi
+@ExperimentalPagerApi
 @Composable
 fun MainScreenTopBar(
-    viewModel: MainActivityViewModel,
-    onClickOptionsEvent: () -> Unit = {}
+    pagerState: PagerState,
+    resources: List<String>,
+    onClickOptionsEvent: () -> Unit,
+    onClickRefreshEvent: () -> Unit,
 ) {
-    val cityName: String = "Stuttgart"
+    val cityName: String = resources[pagerState.currentPage]
     val datetime: String = "12 September, Sunday"
     TopAppBar(
         contentPadding = PaddingValues(10.dp),
