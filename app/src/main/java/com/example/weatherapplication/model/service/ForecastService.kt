@@ -19,13 +19,13 @@ class ForecastService {
         .create(WeatherRepository::class.java)
 
     fun updateCurrentForecast(
-        forecast: MutableState<Forecast?>,
+        forecast: MutableState<Forecast>,
         latitude: Double,
         longitude: Double
     ) {
         val call: Call<ForecastCurrent> =
             weatherRepository.getCurrentForecast(latitude, longitude, IdentifierService.id)
-        val mappingFunction: (Response<ForecastCurrent>, MutableState<Forecast?>) -> Unit =
+        val mappingFunction: (Response<ForecastCurrent>, MutableState<Forecast>) -> Unit =
             { response, data ->
                 if (response.body() != null) {
                     val body: ForecastCurrent = response.body()
@@ -59,7 +59,6 @@ class ForecastService {
                     val cityName: String = body.city.name
                     val cityLatitude: Double = body.city.coordinates.latitude
                     val cityLongitude: Double = body.city.coordinates.longitude
-                    val timezone: Long = body.city.timezone
 
                     data.clear()
                     data.addAll(

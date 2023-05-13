@@ -14,15 +14,20 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.weatherapplication.model.data.Forecast
 import com.example.weatherapplication.view_model.WeatherViewModel
 
 @Composable
 fun WeatherInfo(
-    viewModel: WeatherViewModel
+    forecast: Forecast,
+    weatherSpeedRepresentationFunction: (Forecast) -> String,
+    humidityRepresentationFunction: (Forecast) -> String,
+    precipitationRepresentationFunction: (Forecast) -> String,
 ) {
-    val windSpeed: String = "10 m/s"
-    val humidity: String = "98 %"
-    val rainProbability: String = "100%"
+    val windSpeed: String = weatherSpeedRepresentationFunction(forecast)
+    val humidity: String = humidityRepresentationFunction(forecast)
+    val rainProbability: String = precipitationRepresentationFunction(forecast)
+
     Row(
         modifier = Modifier
             .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(10.dp))

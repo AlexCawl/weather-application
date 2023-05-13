@@ -8,6 +8,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.weatherapplication.model.data.Forecast
 import com.example.weatherapplication.view_model.WeatherViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
@@ -16,12 +17,12 @@ import com.google.accompanist.pager.rememberPagerState
 @ExperimentalPagerApi
 @Composable
 fun ForecastInfo(
-    viewModel: WeatherViewModel
+    content: List<Forecast>
 ) {
     val tabs = listOf(
-        ForecastTabItem.Today,
-        ForecastTabItem.Tomorrow,
-        ForecastTabItem.Week
+        ForecastTabItem("Today") { ForecastContent(list = content, range = (0 until 8)) },
+        ForecastTabItem("Tomorrow") { ForecastContent(list = content, range = (8 until 16)) },
+        ForecastTabItem("Week") { ForecastContent(list = content, range = (16 until 40)) },
     )
     val pagerState = rememberPagerState(pageCount = tabs.size)
     Column {
@@ -29,6 +30,6 @@ fun ForecastInfo(
         Spacer(modifier = Modifier
             .height(5.dp)
             .fillMaxWidth())
-        TabContent(tabs = tabs, pagerState = pagerState, viewModel = viewModel)
+        TabContent(pagerState = pagerState, tabs = tabs)
     }
 }

@@ -1,14 +1,15 @@
 package com.example.weatherapplication.view.screen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import com.example.weatherapplication.model.data.Forecast
+import com.example.weatherapplication.model.data.Place
+import com.example.weatherapplication.model.data.Weather
 import com.example.weatherapplication.view.layout.MainScreenTopBar
 import com.example.weatherapplication.view_model.WeatherViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -20,29 +21,41 @@ import com.google.accompanist.pager.rememberPagerState
 @Composable
 fun MainScreen(
     viewModel: WeatherViewModel,
-    onClickOptionsEvent: () -> Unit = {},
-    onClickRefreshEvent: () -> Unit = {},
+    onClickRefreshEvent: () -> Unit,
+    onClickOptionsEvent: () -> Unit,
+    cityRepresentationFunction: (Place) -> String,
+    temperatureRepresentationFunction: (Forecast) -> String,
+    weatherTypeRepresentationFunction: (Forecast) -> String,
+    weatherSpeedRepresentationFunction: (Forecast) -> String,
+    humidityRepresentationFunction: (Forecast) -> String,
+    precipitationRepresentationFunction: (Forecast) -> String,
 ) {
-    val resources: List<WeatherScreenItem> = viewModel.locations
-        .map { pair -> WeatherScreenItem(pair.key) { WeatherScreen(pair.value) } }
-    val namespaces: List<String> = viewModel.locations.keys.toList()
+    val resources: SnapshotStateMap<String, Weather> = remember { viewModel.locations }
+    val content: List<@Composable () -> Unit> = resources.map { pair ->
+        {
+            WeatherScreen(
+                screenIdentifier = pair.key, weather = pair.value,
+                cityRepresentationFunction = cityRepresentationFunction,
+                temperatureRepresentationFunction = temperatureRepresentationFunction,
+                weatherTypeRepresentationFunction = weatherTypeRepresentationFunction,
+                weatherSpeedRepresentationFunction = weatherSpeedRepresentationFunction,
+                humidityRepresentationFunction = humidityRepresentationFunction,
+                precipitationRepresentationFunction = precipitationRepresentationFunction
+            )
+        }
+    }
     val pagerState = rememberPagerState(pageCount = resources.size)
 
     Scaffold(
         topBar = {
-            MainScreenTopBar(pagerState, namespaces, onClickOptionsEvent, onClickRefreshEvent)
+            MainScreenTopBar(onClickRefreshEvent, onClickOptionsEvent)
         }
     ) {
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.padding(it)
         ) { page ->
-//            resources[page].content()
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Blue))
+            content[page]()
         }
     }
 }
-
-data class WeatherScreenItem(val name: String, val content: @Composable () -> Unit)

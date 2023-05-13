@@ -1,5 +1,6 @@
 package com.example.weatherapplication.model.dao
 
+import android.util.Log
 import com.example.weatherapplication.model.data.Forecast
 import com.example.weatherapplication.model.data.Place
 import com.example.weatherapplication.model.data.Weather
@@ -15,12 +16,13 @@ class Database {
         private val forecasts: List<Forecast> = listOf(forecast, forecast, forecast, forecast, forecast, forecast, forecast, forecast, forecast, forecast)
 
         fun loadData(): Map<String, Weather> {
+            Log.println(Log.INFO, "MockedDatabase", "initialized")
             return mapOf(
                 Pair("Moscow", Weather(place, forecast, forecasts)),
-                Pair("Moscow", Weather(place, forecast, forecasts)),
-                Pair("Moscow", Weather(place, forecast, forecasts)),
-                Pair("Moscow", Weather(place, forecast, forecasts)),
-                Pair("Moscow", Weather(place, forecast, forecasts)),
+                Pair("Berlin", Weather(place, forecast, forecasts)),
+                Pair("Paris", Weather(place, forecast, forecasts)),
+                Pair("Chelyabinsk", Weather(place, forecast, forecasts)),
+                Pair("Tokyo", Weather(place, forecast, forecasts)),
             )
         }
     }

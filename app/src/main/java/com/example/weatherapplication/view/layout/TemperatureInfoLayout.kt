@@ -12,14 +12,18 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.weatherapplication.R
+import com.example.weatherapplication.model.data.Forecast
 import com.example.weatherapplication.view_model.WeatherViewModel
 
 @Composable
 fun TemperatureInfo(
-    viewModel: WeatherViewModel
+    forecast: Forecast,
+    temperatureRepresentationFunction: (Forecast) -> String,
+    weatherTypeRepresentationFunction: (Forecast) -> String,
 ) {
-    val temperature: String = "18°"
-    val weatherDescription: String = "Cloudy"
+    val temperature: String = temperatureRepresentationFunction(forecast)
+    val weatherDescription: String = weatherTypeRepresentationFunction(forecast)
+
     Row(
         modifier = Modifier
             .fillMaxWidth()

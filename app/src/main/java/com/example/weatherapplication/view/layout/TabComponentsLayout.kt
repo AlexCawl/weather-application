@@ -15,34 +15,7 @@ import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
-sealed class ForecastTabItem(
-    val title: String,
-    val content: @Composable (WeatherViewModel) -> Unit
-) {
-    object Today : ForecastTabItem(
-        title = "Today",
-        content = {
-            val list = remember { mutableListOf<Forecast>() }
-            ForecastContent(list = list, size = 8)
-        }
-    )
-
-    object Tomorrow : ForecastTabItem(
-        title = "Tomorrow",
-        content = {
-            val list = remember { mutableListOf<Forecast>() }
-            ForecastContent(list = list, size = 16)
-        }
-    )
-
-    object Week : ForecastTabItem(
-        title = "Week",
-        content = {
-            val list = remember { mutableListOf<Forecast>() }
-            ForecastContent(list = list, size = 40)
-        }
-    )
-}
+class ForecastTabItem(val title: String, val screen: @Composable () -> Unit)
 
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
@@ -80,30 +53,10 @@ fun TabSelector(
 @ExperimentalPagerApi
 @Composable
 fun TabContent(
-    tabs: List<ForecastTabItem>,
     pagerState: PagerState,
-    viewModel: WeatherViewModel
+    tabs: List<ForecastTabItem>,
 ) {
     HorizontalPager(state = pagerState) { page ->
-        tabs[page].content(viewModel)
-    }
-}
-
-@ExperimentalMaterialApi
-@ExperimentalPagerApi
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun TabsPreview() {
-    WeatherApplicationTheme {
-        val tabs = listOf(
-            ForecastTabItem.Today,
-            ForecastTabItem.Tomorrow,
-            ForecastTabItem.Week
-        )
-        val pagerState = rememberPagerState(pageCount = tabs.size)
-        Column {
-            TabSelector(tabs = tabs, pagerState = pagerState)
-            TabContent(tabs = tabs, pagerState = pagerState, WeatherViewModel())
-        }
+        tabs[page].screen()
     }
 }

@@ -20,28 +20,33 @@ import com.google.accompanist.pager.PagerState
 @ExperimentalPagerApi
 @Composable
 fun MainScreenTopBar(
-    pagerState: PagerState,
-    resources: List<String>,
-    onClickOptionsEvent: () -> Unit,
     onClickRefreshEvent: () -> Unit,
+    onClickOptionsEvent: () -> Unit,
 ) {
-    val cityName: String = resources[pagerState.currentPage]
     val datetime: String = "12 September, Sunday"
     TopAppBar(
         contentPadding = PaddingValues(10.dp),
         backgroundColor = MaterialTheme.colors.background,
     ) {
-        Column {
-            Text(
-                text = cityName,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.onBackground
-            )
-            Text(
-                text = datetime,
-                fontSize = 14.sp,
-                color = MaterialTheme.colors.onSurface
+        Text(
+            text = datetime,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colors.onBackground
+        )
+        Spacer(Modifier.weight(1f, true))
+        IconButton(onClick = onClickRefreshEvent) {
+            Icon(
+                modifier = Modifier
+                    .size(50.dp)
+                    .background(
+                        color = MaterialTheme.colors.surface,
+                        shape = RoundedCornerShape(10.dp)
+                    )
+                    .padding(5.dp),
+                imageVector = ImageVector.vectorResource(id = R.drawable.round_refresh_24),
+                contentDescription = null,
+                tint = MaterialTheme.colors.onSurface
             )
         }
         Spacer(Modifier.weight(1f, true))

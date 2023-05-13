@@ -82,8 +82,16 @@ fun ForecastItem(
 @Composable
 fun ForecastContent(
     list: List<Forecast>,
-    size: Int
+    range: IntRange
 ) {
+    val content = mutableListOf<Forecast>()
+    val indices = list.indices
+    range.forEach {
+        if (it in indices) {
+            content.add(list[it])
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -91,10 +99,10 @@ fun ForecastContent(
             .padding(5.dp)
     ) {
         LazyColumn {
-            val (minTemp: Double, maxTemp: Double) = list.take(size).fold(
+            val (minTemp: Double, maxTemp: Double) = content.fold(
                 Pair(Double.MAX_VALUE, Double.MIN_VALUE)
             ) { pair, forecast ->
-                return@fold when {
+                when {
                     forecast.temperatureMinimum < pair.first && forecast.temperatureMaximum > pair.second -> Pair(
                         forecast.temperatureMinimum, forecast.temperatureMaximum
                     )
@@ -108,7 +116,8 @@ fun ForecastContent(
                 }
             }
             val sizeOfBar: Double = abs(maxTemp - minTemp)
-            items(list.take(size)) {
+
+            items(content) {
                 val time = it.getTime(true)
                 val temperature = it.getTemperature()
                 val progress: Pair<Float, Float> = Pair(
