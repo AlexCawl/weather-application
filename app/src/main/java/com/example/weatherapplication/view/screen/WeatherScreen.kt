@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.weatherapplication.model.dao.Database
 import com.example.weatherapplication.model.data.Forecast
-import com.example.weatherapplication.model.data.Place
+import com.example.weatherapplication.model.data.Location
 import com.example.weatherapplication.model.data.Weather
 import com.example.weatherapplication.view.layout.ForecastInfo
 import com.example.weatherapplication.view.layout.PlaceInfo
@@ -24,14 +24,14 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 fun WeatherScreen(
     screenIdentifier: String,
     weather: Weather,
-    cityRepresentationFunction: (Place) -> String,
+    cityRepresentationFunction: (Location) -> String,
     temperatureRepresentationFunction: (Forecast) -> String,
     weatherTypeRepresentationFunction: (Forecast) -> String,
     weatherSpeedRepresentationFunction: (Forecast) -> String,
     humidityRepresentationFunction: (Forecast) -> String,
     precipitationRepresentationFunction: (Forecast) -> String,
 ) {
-    val place = remember { weather.place }
+    val place = remember { weather.location }
     val currentForecast = remember { weather.currentWeather }
     val futureForecast = remember { weather.futureWeather }
 
@@ -41,7 +41,7 @@ fun WeatherScreen(
     ) {
         Column {
             PlaceInfo(
-                place = place.value,
+                location = place.value,
                 cityRepresentationFunction = cityRepresentationFunction
             )
             TemperatureInfo(

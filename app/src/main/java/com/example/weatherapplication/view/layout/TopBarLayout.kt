@@ -119,3 +119,28 @@ fun LocationScreenTopBar(
         }
     }
 }
+
+@Composable
+fun SearchScreenTopBar(
+    onClickReturnEvent: () -> Unit
+) {
+    TopAppBar(
+        contentPadding = PaddingValues(5.dp),
+        backgroundColor = MaterialTheme.colors.background,
+    ) {
+        IconButton(onClick = onClickReturnEvent) {
+            Icon(
+                modifier = Modifier
+                    .size(35.dp)
+                    .background(
+                        color = MaterialTheme.colors.surface,
+                        shape = RoundedCornerShape(10.dp)
+                    )
+                    .padding(5.dp),
+                imageVector = ImageVector.vectorResource(id = R.drawable.round_arrow_back_24),
+                contentDescription = null,
+                tint = MaterialTheme.colors.onSurface
+            )
+        }
+    }
+}

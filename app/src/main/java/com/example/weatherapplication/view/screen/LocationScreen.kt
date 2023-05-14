@@ -14,9 +14,11 @@ import androidx.compose.ui.unit.dp
 import com.example.weatherapplication.view.layout.LocationScreenTopBar
 import com.example.weatherapplication.view.layout.SearchBar
 import com.example.weatherapplication.view.theme.WeatherApplicationTheme
+import com.example.weatherapplication.view_model.WeatherViewModel
 
 @Composable
 fun LocationScreen(
+    viewModel: WeatherViewModel,
     onClickReturnEvent: () -> Unit,
     onClickRefreshEvent: () -> Unit,
     onClickSettingsEvent: () -> Unit,
@@ -33,18 +35,7 @@ fun LocationScreen(
         Column(
             modifier = Modifier.padding(it)
         ) {
-            SearchBar(
-                onTextChangeEvent = {},
-                unfocusedColor = MaterialTheme.colors.onSurface,
-                focusedColor = MaterialTheme.colors.onBackground,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .background(
-                        color = MaterialTheme.colors.surface,
-                        shape = RoundedCornerShape(15.dp)
-                    )
-            )
+
         }
     }
 }
@@ -54,6 +45,7 @@ fun LocationScreen(
 fun LocationScreenPreview() {
     WeatherApplicationTheme {
         LocationScreen(
+            WeatherViewModel(),
             onClickReturnEvent = { /*TODO*/ },
             onClickRefreshEvent = { /*TODO*/ },
             onClickSettingsEvent = { /*TODO*/ },

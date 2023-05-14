@@ -8,7 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
 import com.example.weatherapplication.model.data.Forecast
-import com.example.weatherapplication.model.data.Place
+import com.example.weatherapplication.model.data.Location
 import com.example.weatherapplication.model.data.Weather
 import com.example.weatherapplication.view.layout.MainScreenTopBar
 import com.example.weatherapplication.view_model.WeatherViewModel
@@ -23,7 +23,7 @@ fun MainScreen(
     viewModel: WeatherViewModel,
     onClickRefreshEvent: () -> Unit,
     onClickOptionsEvent: () -> Unit,
-    cityRepresentationFunction: (Place) -> String,
+    cityRepresentationFunction: (Location) -> String,
     temperatureRepresentationFunction: (Forecast) -> String,
     weatherTypeRepresentationFunction: (Forecast) -> String,
     weatherSpeedRepresentationFunction: (Forecast) -> String,

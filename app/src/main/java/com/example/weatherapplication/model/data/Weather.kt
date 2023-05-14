@@ -7,11 +7,11 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 
 
 class Weather(
-    location: Place,
+    location: Location,
     forecastCurrent: Forecast,
     forecastFuture: List<Forecast>
 ) {
-    val place: MutableState<Place> = mutableStateOf(location)
+    val location: MutableState<Location> = mutableStateOf(location)
     val currentWeather: MutableState<Forecast> = mutableStateOf(forecastCurrent)
     val futureWeather: SnapshotStateList<Forecast> = mutableStateListOf<Forecast>().let {
         it.addAll(forecastFuture)
@@ -19,10 +19,10 @@ class Weather(
     }
 
     fun updateCurrentWeather(updateFunction: (MutableState<Forecast>, Double, Double) -> Unit) {
-        updateFunction(currentWeather, place.value.latitude, place.value.longitude)
+        updateFunction(currentWeather, location.value.latitude, location.value.longitude)
     }
 
     fun updateFutureWeather(updateFunction: (SnapshotStateList<Forecast>, Double, Double) -> Unit) {
-        updateFunction(futureWeather, place.value.latitude, place.value.longitude)
+        updateFunction(futureWeather, location.value.latitude, location.value.longitude)
     }
 }
