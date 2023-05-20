@@ -1,7 +1,5 @@
 package com.example.weatherapplication.ui.layout
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -24,6 +22,7 @@ import com.example.weatherapplication.R
 @Composable
 fun SearchBarView(
     onTextChangeEvent: (String) -> Unit,
+    onClearClickedEvent: () -> Unit,
     unfocusedColor: Color,
     focusedColor: Color,
     modifier: Modifier = Modifier,
@@ -33,9 +32,7 @@ fun SearchBarView(
 
     OutlinedTextField(
         modifier = modifier
-            .onFocusChanged { hasFocus.value = it.hasFocus }
-            .fillMaxWidth()
-            .padding(5.dp),
+            .onFocusChanged { hasFocus.value = it.hasFocus },
         value = content.value,
         onValueChange = {
             content.value = it
@@ -53,7 +50,12 @@ fun SearchBarView(
         },
         trailingIcon = {
             if (content.value.isNotEmpty() && hasFocus.value) {
-                IconButton(onClick = { content.value = "" }) {
+                IconButton(
+                    onClick = {
+                        content.value = ""
+                        onClearClickedEvent()
+                    }
+                ) {
                     Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.round_clear_24),
                         contentDescription = null,

@@ -8,16 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.weatherapplication.model.service.ConverterService
 import com.example.weatherapplication.ui.screen.MainScreen
 import com.example.weatherapplication.ui.theme.WeatherApplicationTheme
-import com.example.weatherapplication.vm.LocationViewModel
 import com.example.weatherapplication.vm.WeatherViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 class MainActivity : ComponentActivity() {
     private val weatherViewModel: WeatherViewModel by lazy {
         ViewModelProvider(this)[WeatherViewModel::class.java]
-    }
-    private val locationViewModel: LocationViewModel by lazy {
-        ViewModelProvider(this)[LocationViewModel::class.java]
     }
     private val converter: ConverterService = ConverterService()
 
@@ -28,8 +24,7 @@ class MainActivity : ComponentActivity() {
         this.setContent {
             WeatherApplicationTheme {
                 MainScreen(
-                    weatherViewModel = weatherViewModel,
-                    locationViewModel = locationViewModel,
+                    viewModel = weatherViewModel,
                     converter = converter
                 )
             }

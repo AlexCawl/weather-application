@@ -26,8 +26,8 @@ fun SearchItem(
         modifier = modifier
             .fillMaxWidth()
             .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(15.dp))
-            .padding(10.dp)
-            .clickable { onClickEvent() },
+            .clickable { onClickEvent() }
+            .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(

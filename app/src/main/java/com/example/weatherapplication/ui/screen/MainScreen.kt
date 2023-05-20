@@ -8,15 +8,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.weatherapplication.model.service.ConverterService
-import com.example.weatherapplication.vm.LocationViewModel
 import com.example.weatherapplication.vm.WeatherViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalPagerApi::class)
 @Composable
 fun MainScreen(
-    weatherViewModel: WeatherViewModel,
-    locationViewModel: LocationViewModel,
+    viewModel: WeatherViewModel,
     converter: ConverterService
 ) {
     val navigationController: NavHostController = rememberNavController()
@@ -28,7 +26,7 @@ fun MainScreen(
     ) {
         composable("weather") {
             WeatherScreen(
-                viewModel = weatherViewModel,
+                viewModel = viewModel,
                 onClickRefreshEvent = { /*TODO*/ },
                 onClickOptionsEvent = {
                     navigationController.navigate("location") {
@@ -40,7 +38,7 @@ fun MainScreen(
         }
         composable("location") {
             LocationScreen(
-                viewModel = weatherViewModel,
+                viewModel = viewModel,
                 onClickReturnEvent = {
                     navigationController.navigate("weather") {
                         launchSingleTop = true
@@ -61,7 +59,7 @@ fun MainScreen(
         }
         composable("search") {
             SearchScreen(
-                viewModel = locationViewModel,
+                viewModel = viewModel,
                 onClickReturnEvent = {
                     navigationController.navigate("location") {
                         launchSingleTop = true
