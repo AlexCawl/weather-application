@@ -1,8 +1,10 @@
 package com.example.weatherapplication.ui.layout
 
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -19,11 +21,17 @@ fun LocationFloatingActionButton(
 ) {
     FloatingActionButton(
         onClick = onClickEvent,
-        modifier = modifier,
-        shape = RoundedCornerShape(15.dp),
+        modifier = modifier.size(80.dp),
+        shape = CircleShape,
         backgroundColor = MaterialTheme.colors.primary,
         contentColor = MaterialTheme.colors.onPrimary
     ) {
-        Icon(imageVector = ImageVector.vectorResource(id = R.drawable.round_search_24), contentDescription = null)
+        Icon(
+            imageVector = ImageVector.vectorResource(id = R.drawable.round_add_24),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(15.dp)
+        )
     }
 }

@@ -22,25 +22,27 @@ fun WeatherView(
     weatherTypeRepresentationFunction: (Forecast) -> String,
     weatherSpeedRepresentationFunction: (Forecast) -> String,
     humidityRepresentationFunction: (Forecast) -> String,
-    precipitationRepresentationFunction: (Forecast) -> String,
+    cloudinessRepresentationFunction: (Forecast) -> String,
     dateTimeRepresentationFunction: (Forecast) -> String,
-    minMaxTemperatureRepresentationFunction: (Forecast) -> Pair<String, String>
+    minMaxTemperatureRepresentationFunction: (Forecast) -> Pair<String, String>,
+    iconRepresentationFunction: (Forecast) -> Int
 ) {
     val place = remember { location.position }
     val currentForecast = remember { location.currentWeather }
     val futureForecast = remember { location.forecasts }
 
-    Box(
-        modifier = Modifier.padding(15.dp)
-    ) {
-        Column {
+    if (currentForecast.value != null && futureForecast.size > 0) {
+        Column(
+            modifier = Modifier.padding(15.dp)
+        ) {
             PlaceInfoView(
                 position = place.value, cityRepresentationFunction = cityRepresentationFunction
             )
             TemperatureInfoView(
-                forecast = currentForecast.value,
+                forecast = currentForecast.value!!,
                 temperatureRepresentationFunction = temperatureRepresentationFunction,
-                weatherTypeRepresentationFunction = weatherTypeRepresentationFunction
+                weatherTypeRepresentationFunction = weatherTypeRepresentationFunction,
+                iconRepresentationFunction = iconRepresentationFunction
             )
             Spacer(
                 modifier = Modifier
@@ -48,10 +50,10 @@ fun WeatherView(
                     .fillMaxWidth()
             )
             WeatherInfoView(
-                forecast = currentForecast.value,
+                forecast = currentForecast.value!!,
                 weatherSpeedRepresentationFunction = weatherSpeedRepresentationFunction,
                 humidityRepresentationFunction = humidityRepresentationFunction,
-                precipitationRepresentationFunction = precipitationRepresentationFunction
+                cloudinessRepresentationFunction = cloudinessRepresentationFunction
             )
             Spacer(
                 modifier = Modifier

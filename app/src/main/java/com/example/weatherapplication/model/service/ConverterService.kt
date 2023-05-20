@@ -1,5 +1,6 @@
 package com.example.weatherapplication.model.service
 
+import com.example.weatherapplication.R
 import com.example.weatherapplication.model.data.Forecast
 import com.example.weatherapplication.model.data.Position
 
@@ -29,8 +30,11 @@ class ConverterService {
     }
 
     fun getWeatherType(forecast: Forecast): String {
-        // TODO()
-        return "Cloudy"
+        return forecast.weatherDescription
+            .split("\\W+".toRegex())
+            .joinToString(" ") {
+                it.replaceFirstChar(Char::uppercaseChar)
+            }
     }
 
     fun getWeatherSpeed(forecast: Forecast): String {
@@ -43,5 +47,19 @@ class ConverterService {
 
     fun getPrecipitation(forecast: Forecast): String {
         return "${forecast.precipitationProbability} %"
+    }
+
+    fun getCloudiness(forecast: Forecast): String {
+        return "${forecast.cloudiness} %"
+    }
+
+    fun getIconID(forecast: Forecast): Int {
+        return when (forecast.weatherType) {
+            "Thunderstorm" -> R.drawable.icon_thunder
+            "Drizzle", "Rain" -> R.drawable.icon_rainy
+            "Snow" -> R.drawable.icon_snowy
+            "Clear" -> R.drawable.icon_clear
+            else -> R.drawable.icon_cloudy
+        }
     }
 }

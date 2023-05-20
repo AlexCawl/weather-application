@@ -19,13 +19,12 @@ class ForecastService {
         .create(WeatherRepository::class.java)
 
     fun updateCurrentForecast(
-        forecast: MutableState<Forecast>,
+        forecast: MutableState<Forecast?>,
         latitude: Double,
         longitude: Double
     ) {
-        val call: Call<Prognosis> =
-            weatherRepository.getCurrentForecast(latitude, longitude, IdentifierService.id)
-        val mappingFunction: (Response<Prognosis>, MutableState<Forecast>) -> Unit =
+        val call: Call<Prognosis> = weatherRepository.getCurrentForecast(latitude, longitude, IdentifierService.id)
+        val mappingFunction: (Response<Prognosis>, MutableState<Forecast?>) -> Unit =
             { response, data ->
                 if (response.body() != null) {
                     val body: Prognosis = response.body()
@@ -39,7 +38,9 @@ class ForecastService {
                         body.metrics.humidity,
                         body.wind.speed,
                         body.clouds.cloudiness,
-                        LocalDateTime.ofEpochSecond(body.datetime, 0, ZoneOffset.UTC)
+                        LocalDateTime.ofEpochSecond(body.datetime, 0, ZoneOffset.UTC),
+                        body.weather[0].description,
+                        body.weather[0].type
                     )
                 }
             }
@@ -74,6 +75,8 @@ class ForecastService {
                                 it.wind.speed,
                                 it.cloudiness.cloudiness,
                                 LocalDateTime.ofEpochSecond(it.datetime, 0, ZoneOffset.UTC),
+                                it.weather[0].description,
+                                it.weather[0].type,
                                 it.precipitationProbability
                             )
                         }

@@ -7,11 +7,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.weatherapplication.R
 import com.example.weatherapplication.model.data.Forecast
 
 @Composable
@@ -19,14 +18,15 @@ fun TemperatureInfoView(
     forecast: Forecast,
     temperatureRepresentationFunction: (Forecast) -> String,
     weatherTypeRepresentationFunction: (Forecast) -> String,
+    iconRepresentationFunction: (Forecast) -> Int
 ) {
     val temperature: String = temperatureRepresentationFunction(forecast)
     val weatherDescription: String = weatherTypeRepresentationFunction(forecast)
+    val iconID: Int = iconRepresentationFunction(forecast)
 
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Min),
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -49,12 +49,9 @@ fun TemperatureInfoView(
         }
         Spacer(modifier = Modifier.weight(1f))
         Icon(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxSize(),
-            imageVector = ImageVector.vectorResource(id = R.drawable.round_cloud_24),
-            contentDescription = null,
-            tint = MaterialTheme.colors.onBackground
+            modifier = Modifier.size(150.dp),
+            painter = painterResource(id = iconID),
+            contentDescription = null
         )
     }
 }

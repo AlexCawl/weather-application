@@ -10,9 +10,9 @@ import java.time.LocalDateTime
  * Mocked Database
  * */
 class Database {
-    companion object {
+    /*companion object {
         private val position: Position = Position("Moscow", mapOf(), 87.3, -45.7, "RU", null)
-        private val forecast: Forecast = Forecast("Moscow", 87.3, -45.7, 18.7, 15.6, 20.3, 56, 10.5, 86, LocalDateTime.now(), null)
+        private val forecast: Forecast = Forecast("Moscow", 87.3, -45.7, 18.7, 15.6, 20.3, 56, 10.5, 86, LocalDateTime.now(), 56.0)
         private val forecasts: List<Forecast> = listOf(forecast, forecast, forecast, forecast, forecast, forecast, forecast, forecast, forecast, forecast)
 
         fun loadData(): Map<String, Location> {
@@ -25,5 +25,5 @@ class Database {
                 Pair("Tokyo", Location(position, forecast, forecasts)),
             )
         }
-    }
+    }*/
 }

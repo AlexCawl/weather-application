@@ -16,11 +16,11 @@ fun WeatherInfoView(
     forecast: Forecast,
     weatherSpeedRepresentationFunction: (Forecast) -> String,
     humidityRepresentationFunction: (Forecast) -> String,
-    precipitationRepresentationFunction: (Forecast) -> String,
+    cloudinessRepresentationFunction: (Forecast) -> String,
 ) {
     val windSpeed: String = weatherSpeedRepresentationFunction(forecast)
     val humidity: String = humidityRepresentationFunction(forecast)
-    val rainProbability: String = precipitationRepresentationFunction(forecast)
+    val cloudiness: String = cloudinessRepresentationFunction(forecast)
 
     Row(
         modifier = Modifier
@@ -43,9 +43,9 @@ fun WeatherInfoView(
         )
         WeatherMetricaItem(
             modifier = Modifier.weight(1f),
-            dataText = rainProbability,
-            descriptionText = "Rain",
-            iconID = com.example.weatherapplication.R.drawable.round_thunderstorm_24
+            dataText = cloudiness,
+            descriptionText = "Cloudiness",
+            iconID = com.example.weatherapplication.R.drawable.round_cloud_24
         )
     }
 }

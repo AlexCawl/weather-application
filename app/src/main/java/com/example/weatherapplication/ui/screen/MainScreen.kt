@@ -54,7 +54,8 @@ fun MainScreen(
                     navigationController.navigate("search") {
                         launchSingleTop = true
                     }
-                }
+                },
+                converter = converter
             )
         }
         composable("search") {

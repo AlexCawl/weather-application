@@ -36,9 +36,10 @@ fun WeatherScreen(
                 weatherTypeRepresentationFunction = { converter.getWeatherType(it) },
                 weatherSpeedRepresentationFunction = { converter.getWeatherSpeed(it) },
                 humidityRepresentationFunction = { converter.getHumidity(it) },
-                precipitationRepresentationFunction = { converter.getPrecipitation(it) },
+                cloudinessRepresentationFunction = { converter.getCloudiness(it) },
                 dateTimeRepresentationFunction = { converter.getTime(it) },
-                minMaxTemperatureRepresentationFunction = { converter.getPairTemperature(it) }
+                minMaxTemperatureRepresentationFunction = { converter.getPairTemperature(it) },
+                iconRepresentationFunction = { converter.getIconID(it) }
             )
         }
     }

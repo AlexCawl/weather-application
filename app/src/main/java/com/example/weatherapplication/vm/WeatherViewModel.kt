@@ -2,10 +2,10 @@ package com.example.weatherapplication.vm
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.lifecycle.ViewModel
-import com.example.weatherapplication.model.dao.Database
 import com.example.weatherapplication.model.data.Location
 import com.example.weatherapplication.model.data.Position
 import com.example.weatherapplication.model.service.ForecastService
@@ -14,30 +14,47 @@ import com.example.weatherapplication.model.service.LocationService
 class WeatherViewModel : ViewModel() {
     private val forecastService: ForecastService = ForecastService()
     private val locationService: LocationService = LocationService()
-
-    val locations: SnapshotStateMap<String, Location> = Database.loadData().let {
-        mutableStateMapOf<String, Location>().apply { putAll(it) }
-    }
+    val locations: SnapshotStateMap<String, Location> = mutableStateMapOf()
 
     fun updateHints(hints: SnapshotStateList<Position>, query: MutableState<String>) {
         locationService.updateLocations(hints, query.value)
     }
 
     fun addLocation(position: Position) {
-        TODO()
+        val location = Location(mutableStateOf(position))
+        updateData(location)
+        locations[location.hashCode().toString()] = location
+    }
+
+    fun removeLocation(identifier: String) {
+        locations.remove(identifier)
     }
 
     fun refreshData() {
         TODO()
     }
 
-    fun refreshData(id: String) {
-        TODO()
+    fun refreshData(identifier: String) {
+        when (val location = locations[identifier]) {
+            null -> {}
+            else -> {
+                updateData(location)
+            }
+        }
     }
 
-//    private fun updateCurrentForecast(location: Weather) {
-//        location.updateCurrentWeather { forecast, latitude, longitude ->
-//            forecastService.updateCurrentForecast(forecast, latitude, longitude)
-//        }
-//    }
+    @Throws(NullPointerException::class)
+    private fun updateData(location: Location) {
+        val position: Position = location.position.value
+        forecastService.updateCurrentForecast(
+            location.currentWeather,
+            position.latitude,
+            position.longitude
+        )
+        forecastService.updateFutureForecast(
+            location.forecasts,
+            position.latitude,
+            position.longitude
+        )
+    }
 }

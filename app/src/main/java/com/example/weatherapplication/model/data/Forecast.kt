@@ -16,5 +16,7 @@ data class Forecast(
     val windSpeed: Double,
     val cloudiness: Int,
     val datetime: LocalDateTime,
+    val weatherDescription: String,
+    val weatherType: String,
     val precipitationProbability: Double? = null
 )
