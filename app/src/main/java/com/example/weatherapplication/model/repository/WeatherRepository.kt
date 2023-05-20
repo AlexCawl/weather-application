@@ -1,8 +1,7 @@
 package com.example.weatherapplication.model.repository
 
-import com.example.weatherapplication.model.data.ForecastCurrent
-import com.example.weatherapplication.model.data.ForecastHourly
-import com.example.weatherapplication.model.data.ForecastHourlyItem
+import com.example.weatherapplication.model.data.Prognosis
+import com.example.weatherapplication.model.data.PrognosisHourly
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,7 +14,7 @@ interface WeatherRepository {
         @Query("appid") id: String,
         @Query("units") units: String = "metric",
         @Query("lang") language: String = "en"
-    ): Call<ForecastCurrent>
+    ): Call<Prognosis>
 
     @GET("data/2.5/forecast")
     fun getHourlyForecast(
@@ -25,5 +24,5 @@ interface WeatherRepository {
         @Query("units") units: String = "metric",
         @Query("cnt") count: Int = 40,
         @Query("lang") language: String = "en"
-    ): Call<ForecastHourly>
+    ): Call<PrognosisHourly>
 }

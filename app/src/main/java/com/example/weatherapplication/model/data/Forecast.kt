@@ -17,18 +17,4 @@ data class Forecast(
     val cloudiness: Int,
     val datetime: LocalDateTime,
     val precipitationProbability: Double? = null
-) {
-    fun getTime(withDays: Boolean = false): String {
-        return when (withDays) {
-            true -> "${datetime.monthValue}.${datetime.dayOfMonth} ${datetime.hour}:${datetime.second}"
-            false -> "${datetime.hour}:${datetime.second}"
-        }
-    }
-
-    fun getTemperature(): Pair<String, String> {
-        return Pair(
-            "${temperatureMinimum.toInt()}°",
-            "${temperatureMaximum.toInt()}°",
-        )
-    }
-}
+)

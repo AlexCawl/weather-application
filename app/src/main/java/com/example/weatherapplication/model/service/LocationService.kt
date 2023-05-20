@@ -1,7 +1,7 @@
 package com.example.weatherapplication.model.service
 
 import android.util.Log
-import com.example.weatherapplication.model.data.Location
+import com.example.weatherapplication.model.data.Position
 import com.example.weatherapplication.model.exception.QueryValidationException
 import com.example.weatherapplication.model.repository.LocationRepository
 import com.example.weatherapplication.model.repository.RepositoryFactory
@@ -25,14 +25,14 @@ class LocationService {
         }
     }
 
-    fun updateLocations(list: MutableList<Location>, query: String) {
+    fun updateLocations(list: MutableList<Position>, query: String) {
         try {
             val requestQuery: String = validateQuery(query)
-            val call: Call<List<Location>> = locationRepository
+            val call: Call<List<Position>> = locationRepository
                 .getLocationList(requestQuery, IdentifierService.hintLimit, IdentifierService.id)
 
-            call.enqueue(object : Callback<List<Location>> {
-                override fun onResponse(call: Call<List<Location>>, response: Response<List<Location>>) {
+            call.enqueue(object : Callback<List<Position>> {
+                override fun onResponse(call: Call<List<Position>>, response: Response<List<Position>>) {
                     Log.println(
                         Log.INFO,
                         this::class.java.toString(),
@@ -44,7 +44,7 @@ class LocationService {
                     }
                 }
 
-                override fun onFailure(call: Call<List<Location>>, t: Throwable) {
+                override fun onFailure(call: Call<List<Position>>, t: Throwable) {
                     Log.println(
                         Log.ERROR,
                         this::class.java.toString(),

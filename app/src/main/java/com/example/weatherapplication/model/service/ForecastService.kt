@@ -2,8 +2,8 @@ package com.example.weatherapplication.model.service
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import com.example.weatherapplication.model.data.ForecastCurrent
-import com.example.weatherapplication.model.data.ForecastHourly
+import com.example.weatherapplication.model.data.Prognosis
+import com.example.weatherapplication.model.data.PrognosisHourly
 import com.example.weatherapplication.model.data.Forecast
 import com.example.weatherapplication.model.repository.RepositoryFactory
 import com.example.weatherapplication.model.repository.WeatherCallback
@@ -23,12 +23,12 @@ class ForecastService {
         latitude: Double,
         longitude: Double
     ) {
-        val call: Call<ForecastCurrent> =
+        val call: Call<Prognosis> =
             weatherRepository.getCurrentForecast(latitude, longitude, IdentifierService.id)
-        val mappingFunction: (Response<ForecastCurrent>, MutableState<Forecast>) -> Unit =
+        val mappingFunction: (Response<Prognosis>, MutableState<Forecast>) -> Unit =
             { response, data ->
                 if (response.body() != null) {
-                    val body: ForecastCurrent = response.body()
+                    val body: Prognosis = response.body()
                     data.value = Forecast(
                         body.cityName,
                         body.coordinates.latitude,
@@ -51,11 +51,11 @@ class ForecastService {
         latitude: Double,
         longitude: Double
     ) {
-        val call: Call<ForecastHourly> = weatherRepository.getHourlyForecast(latitude, longitude, IdentifierService.id)
-        val mappingFunction: (Response<ForecastHourly>, SnapshotStateList<Forecast>) -> Unit =
+        val call: Call<PrognosisHourly> = weatherRepository.getHourlyForecast(latitude, longitude, IdentifierService.id)
+        val mappingFunction: (Response<PrognosisHourly>, SnapshotStateList<Forecast>) -> Unit =
             { response, data ->
                 if (response.body() != null) {
-                    val body: ForecastHourly = response.body()
+                    val body: PrognosisHourly = response.body()
                     val cityName: String = body.city.name
                     val cityLatitude: Double = body.city.coordinates.latitude
                     val cityLongitude: Double = body.city.coordinates.longitude
