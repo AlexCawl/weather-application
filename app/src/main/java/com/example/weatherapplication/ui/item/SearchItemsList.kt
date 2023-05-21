@@ -9,12 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.weatherapplication.retrofit.pojo.Position
+import com.example.weatherapplication.model.Location
 
 @Composable
 fun SearchItemsList(
-    list: List<Position>,
-    onClickEvent: (Position) -> Unit,
+    list: List<Location>,
+    onClickEvent: (Location) -> Unit,
     modifier: Modifier = Modifier,
     gapSize: Dp = 5.dp
 ) {
@@ -26,9 +26,11 @@ fun SearchItemsList(
                 cityName = it.name,
                 latitude = it.latitude,
                 longitude = it.longitude,
-                regionName = it.country,
+                regionName = it.countryCode,
                 onClickEvent = { onClickEvent(it) })
-            Spacer(modifier = Modifier.fillMaxWidth().height(gapSize))
+            Spacer(modifier = Modifier
+                .fillMaxWidth()
+                .height(gapSize))
         }
     }
 }

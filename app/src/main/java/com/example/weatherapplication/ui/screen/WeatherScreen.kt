@@ -5,14 +5,12 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Modifier
-import com.example.weatherapplication.database.model.Location
+import com.example.weatherapplication.android.WeatherViewModel
 import com.example.weatherapplication.service.ConverterService
 import com.example.weatherapplication.ui.layout.MainScreenTopBar
 import com.example.weatherapplication.ui.layout.WeatherView
 import com.example.weatherapplication.ui.theme.ComposableFunction
-import com.example.weatherapplication.android.WeatherViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -26,11 +24,11 @@ fun WeatherScreen(
     onClickRefreshEvent: () -> Unit,
     onClickOptionsEvent: () -> Unit
 ) {
-    val resources: SnapshotStateMap<String, Location> = remember { viewModel.locations }
+    val resources = remember { viewModel.locations }
     val content: List<ComposableFunction> = resources.map { pair ->
         {
             WeatherView(
-                location = pair.value,
+                weather = pair.value,
                 getCity = { converter.getCityName(it) },
                 getTemperature = { converter.getTemperature(it) },
                 getWeatherType = { converter.getWeatherType(it) },

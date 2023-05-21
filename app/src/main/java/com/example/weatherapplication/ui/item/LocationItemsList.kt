@@ -6,12 +6,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.weatherapplication.retrofit.pojo.Position
+import com.example.weatherapplication.model.Location
 
 @Composable
 fun LocationItemsList(
-    content: Map<String, Position>,
-    cityRepresentationFunction: (Position) -> String,
+    content: Map<String, Location>,
+    cityRepresentationFunction: (Location) -> String,
     onClickRemoveEvent: (String) -> Unit,
     onClickRefreshEvent: (String) -> Unit,
     modifier: Modifier = Modifier

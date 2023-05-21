@@ -2,11 +2,11 @@ package com.example.weatherapplication.retrofit.pojo
 
 import com.google.gson.annotations.SerializedName
 
-data class PrognosisHourly(
+data class MultiForecastPOJO(
     @SerializedName("cod") val code: String,
     @SerializedName("message") val message: Int,
     @SerializedName("cnt") val count: Int,
-    @SerializedName("list") val content: List<PrognosisHourlyItem>,
+    @SerializedName("list") val content: List<ForecastPOJO>,
     @SerializedName("city") val city: City,
 ) {
     companion object {

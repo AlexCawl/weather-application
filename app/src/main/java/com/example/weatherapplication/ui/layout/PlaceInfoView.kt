@@ -12,14 +12,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.weatherapplication.retrofit.pojo.Position
+import com.example.weatherapplication.model.Location
 
 @Composable
 fun PlaceInfoView(
-    position: Position,
-    cityRepresentationFunction: (Position) -> String
+    location: Location,
+    cityRepresentationFunction: (Location) -> String
 ) {
-    val text: String = cityRepresentationFunction(position)
+    val text: String = cityRepresentationFunction(location)
     Text(
         text = text,
         modifier = Modifier

@@ -37,7 +37,7 @@ fun LocationScreen(
     ) {
         LocationItemsList(
             modifier = Modifier.padding(it),
-            content = content.mapValues { entry ->  entry.value.position.value },
+            content = content.mapValues { entry ->  entry.value.locationState.value },
             cityRepresentationFunction = { position ->
                 converter.getCityName(position)
             },

@@ -1,8 +1,9 @@
 package com.example.weatherapplication.service
 
 import android.util.Log
-import com.example.weatherapplication.retrofit.pojo.Position
 import com.example.weatherapplication.exception.QueryValidationException
+import com.example.weatherapplication.model.Location
+import com.example.weatherapplication.retrofit.pojo.LocationPOJO
 import com.example.weatherapplication.retrofit.repository.LocationRepository
 import com.example.weatherapplication.retrofit.repository.RepositoryFactory
 import retrofit2.Call
@@ -25,31 +26,37 @@ class LocationService {
         }
     }
 
-    fun updateLocations(list: MutableList<Position>, query: String) {
+    fun updateLocations(list: MutableList<Location>, query: String) {
         try {
             val requestQuery: String = validateQuery(query)
-            val call: Call<List<Position>> = locationRepository
-                .getLocationList(requestQuery, IdentifierService.hintLimit, IdentifierService.id)
+            val call: Call<List<LocationPOJO>> = locationRepository.getLocationList(
+                requestQuery,
+                IdentifierService.hintLimit,
+                IdentifierService.id
+            )
 
-            call.enqueue(object : Callback<List<Position>> {
-                override fun onResponse(call: Call<List<Position>>, response: Response<List<Position>>) {
-                    Log.println(
-                        Log.INFO,
-                        this::class.java.toString(),
-                        "${response.code()} ${response.message()} ${response.body()}"
-                    )
+            call.enqueue(object : Callback<List<LocationPOJO>> {
+                override fun onResponse(
+                    call: Call<List<LocationPOJO>>,
+                    response: Response<List<LocationPOJO>>
+                ) {
                     if (response.body() != null) {
                         list.clear()
-                        list.addAll(response.body())
+                        list.addAll(
+                            response.body().map {
+                                Location(
+                                    it.name,
+                                    it.latitude,
+                                    it.longitude,
+                                    it.country
+                                )
+                            }
+                        )
                     }
                 }
 
-                override fun onFailure(call: Call<List<Position>>, t: Throwable) {
-                    Log.println(
-                        Log.ERROR,
-                        this::class.java.toString(),
-                        t.stackTraceToString()
-                    )
+                override fun onFailure(call: Call<List<LocationPOJO>>, t: Throwable) {
+                    Log.println(Log.ERROR, this::class.java.toString(), t.stackTraceToString())
                     call.cancel()
                 }
             })

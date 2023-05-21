@@ -2,7 +2,7 @@ package com.example.weatherapplication.retrofit.pojo
 
 import com.google.gson.annotations.SerializedName
 
-data class Position(
+data class LocationPOJO(
     @SerializedName("name") val name: String,
     @SerializedName("local_names") val localNames: Map<String, String>,
     @SerializedName("lat") val latitude: Double,

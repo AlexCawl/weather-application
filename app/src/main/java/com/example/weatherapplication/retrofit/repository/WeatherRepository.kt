@@ -1,7 +1,7 @@
 package com.example.weatherapplication.retrofit.repository
 
-import com.example.weatherapplication.retrofit.pojo.Prognosis
-import com.example.weatherapplication.retrofit.pojo.PrognosisHourly
+import com.example.weatherapplication.retrofit.pojo.SingleForecastPOJO
+import com.example.weatherapplication.retrofit.pojo.MultiForecastPOJO
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,7 +14,7 @@ interface WeatherRepository {
         @Query("appid") id: String,
         @Query("units") units: String = "metric",
         @Query("lang") language: String = "en"
-    ): Call<Prognosis>
+    ): Call<SingleForecastPOJO>
 
     @GET("data/2.5/forecast")
     fun getHourlyForecast(
@@ -24,5 +24,5 @@ interface WeatherRepository {
         @Query("units") units: String = "metric",
         @Query("cnt") count: Int = 40,
         @Query("lang") language: String = "en"
-    ): Call<PrognosisHourly>
+    ): Call<MultiForecastPOJO>
 }

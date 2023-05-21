@@ -2,7 +2,7 @@ package com.example.weatherapplication.retrofit.pojo
 
 import com.google.gson.annotations.SerializedName
 
-data class PrognosisHourlyItem(
+data class ForecastPOJO(
     @SerializedName("dt") val datetime: Long,
     @SerializedName("main") val metrics: Metrics,
     @SerializedName("weather") val weather: List<Weather>,

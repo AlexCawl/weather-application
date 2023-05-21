@@ -11,18 +11,18 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.weatherapplication.retrofit.pojo.Position
+import com.example.weatherapplication.android.WeatherViewModel
+import com.example.weatherapplication.model.Location
 import com.example.weatherapplication.ui.item.SearchItemsList
 import com.example.weatherapplication.ui.layout.SearchBarView
 import com.example.weatherapplication.ui.layout.SearchScreenTopBar
-import com.example.weatherapplication.android.WeatherViewModel
 
 @Composable
 fun SearchScreen(
     viewModel: WeatherViewModel,
     onClickReturnEvent: () -> Unit,
 ) {
-    val hints: SnapshotStateList<Position> = remember { mutableStateListOf() }
+    val hints: SnapshotStateList<Location> = remember { mutableStateListOf() }
     val query: MutableState<String> = remember { mutableStateOf("") }
 
     Scaffold(topBar = {
@@ -43,13 +43,16 @@ fun SearchScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(5.dp)
-                    .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(5.dp)),
+                    .background(
+                        color = MaterialTheme.colors.surface,
+                        shape = RoundedCornerShape(5.dp)
+                    ),
                 onClearClickedEvent = { hints.clear() }
             )
             SearchItemsList(
                 list = hints,
                 onClickEvent = { position ->
-                    viewModel.addLocation(position)
+                    viewModel.addWeather(position)
                     onClickReturnEvent()
                 },
                 modifier = Modifier

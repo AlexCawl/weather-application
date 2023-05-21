@@ -2,28 +2,27 @@ package com.example.weatherapplication.android
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateMapOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.lifecycle.ViewModel
-import com.example.weatherapplication.database.model.Location
-import com.example.weatherapplication.retrofit.pojo.Position
+import com.example.weatherapplication.model.Location
+import com.example.weatherapplication.model.Weather
 import com.example.weatherapplication.service.ForecastService
 import com.example.weatherapplication.service.LocationService
 
 class WeatherViewModel : ViewModel() {
     private val forecastService: ForecastService = ForecastService()
     private val locationService: LocationService = LocationService()
-    val locations: SnapshotStateMap<String, Location> = mutableStateMapOf()
+    val locations: SnapshotStateMap<String, Weather> = mutableStateMapOf()
 
-    fun updateHints(hints: SnapshotStateList<Position>, query: MutableState<String>) {
+    fun updateHints(hints: SnapshotStateList<Location>, query: MutableState<String>) {
         locationService.updateLocations(hints, query.value)
     }
 
-    fun addLocation(position: Position) {
-        val location = Location(mutableStateOf(position))
-        updateData(location)
-        locations[location.hashCode().toString()] = location
+    fun addWeather(location: Location) {
+        val weather = Weather(location)
+        updateData(weather)
+        locations[location.hashCode().toString()] = weather
     }
 
     fun removeLocation(identifier: String) {
@@ -44,17 +43,17 @@ class WeatherViewModel : ViewModel() {
     }
 
     @Throws(NullPointerException::class)
-    private fun updateData(location: Location) {
-        val position: Position = location.position.value
+    private fun updateData(weather: Weather) {
+        val location: Location = weather.locationState.value
         forecastService.updateCurrentForecast(
-            location.currentWeather,
-            position.latitude,
-            position.longitude
+            weather.forecastCurrentState,
+            location.latitude,
+            location.longitude
         )
         forecastService.updateFutureForecast(
-            location.forecasts,
-            position.latitude,
-            position.longitude
+            weather.forecastAheadState,
+            location.latitude,
+            location.longitude
         )
     }
 }

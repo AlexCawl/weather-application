@@ -1,6 +1,6 @@
 package com.example.weatherapplication.retrofit.repository
 
-import com.example.weatherapplication.retrofit.pojo.Position
+import com.example.weatherapplication.retrofit.pojo.LocationPOJO
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -11,5 +11,5 @@ interface LocationRepository {
         @Query("q") name: String,
         @Query("limit") limit: Int = 5,
         @Query("appid") id: String
-    ): Call<List<Position>>
+    ): Call<List<LocationPOJO>>
 }

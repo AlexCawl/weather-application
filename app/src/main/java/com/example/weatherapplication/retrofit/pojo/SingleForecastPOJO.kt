@@ -2,7 +2,7 @@ package com.example.weatherapplication.retrofit.pojo
 
 import com.google.gson.annotations.SerializedName
 
-data class Prognosis(
+data class SingleForecastPOJO(
     @SerializedName("coord") val coordinates: Coordinates,
     @SerializedName("weather") val weather: List<Weather>,
     @SerializedName("base") val base: String,

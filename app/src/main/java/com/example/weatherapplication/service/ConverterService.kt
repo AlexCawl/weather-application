@@ -1,8 +1,8 @@
 package com.example.weatherapplication.service
 
 import com.example.weatherapplication.R
-import com.example.weatherapplication.database.model.Forecast
-import com.example.weatherapplication.retrofit.pojo.Position
+import com.example.weatherapplication.model.Forecast
+import com.example.weatherapplication.model.Location
 import java.time.LocalDateTime
 
 // TODO() parameters
@@ -25,7 +25,7 @@ class ConverterService {
     }
 
     fun getTime(forecast: Forecast): Pair<String, String> {
-        val datetime = forecast.datetime
+        val datetime = forecast.time
         return Pair(
             "${datetime.dayOfMonth} ${
                 datetime.month.toString().lowercase().replaceFirstChar(Char::uppercaseChar)
@@ -33,14 +33,14 @@ class ConverterService {
         )
     }
 
-    fun getCityName(position: Position): String {
-        return "${position.name} ${position.country}"
+    fun getCityName(location: Location): String {
+        return "${location.name} ${location.countryCode}"
     }
 
     fun getWeatherType(forecast: Forecast): String {
         return forecast.weatherDescription.split("\\W+".toRegex()).joinToString(" ") {
-                it.replaceFirstChar(Char::uppercaseChar)
-            }
+            it.replaceFirstChar(Char::uppercaseChar)
+        }
     }
 
     fun getWeatherSpeed(forecast: Forecast): String {
@@ -52,7 +52,7 @@ class ConverterService {
     }
 
     fun getPrecipitation(forecast: Forecast): String {
-        return "${((forecast.precipitationProbability ?: 0.0) * 100.0).toInt()} %"
+        return "${(forecast.precipitationProbability * 100.0).toInt()} %"
     }
 
     fun getCloudiness(forecast: Forecast): String {
