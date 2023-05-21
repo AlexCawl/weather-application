@@ -1,6 +1,6 @@
-package com.example.weatherapplication.model.repository
+package com.example.weatherapplication.retrofit.repository
 
-import com.example.weatherapplication.model.data.Position
+import com.example.weatherapplication.retrofit.pojo.Position
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -5,11 +5,11 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.example.weatherapplication.model.service.ConverterService
+import com.example.weatherapplication.service.ConverterService
 import com.example.weatherapplication.ui.item.LocationItemsList
 import com.example.weatherapplication.ui.layout.LocationFloatingActionButton
 import com.example.weatherapplication.ui.layout.LocationScreenTopBar
-import com.example.weatherapplication.vm.WeatherViewModel
+import com.example.weatherapplication.android.WeatherViewModel
 
 @Composable
 fun LocationScreen(

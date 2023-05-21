@@ -1,13 +1,13 @@
-package com.example.weatherapplication.model.service
+package com.example.weatherapplication.service
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import com.example.weatherapplication.model.data.Prognosis
-import com.example.weatherapplication.model.data.PrognosisHourly
-import com.example.weatherapplication.model.data.Forecast
-import com.example.weatherapplication.model.repository.RepositoryFactory
-import com.example.weatherapplication.model.repository.WeatherCallback
-import com.example.weatherapplication.model.repository.WeatherRepository
+import com.example.weatherapplication.retrofit.pojo.Prognosis
+import com.example.weatherapplication.retrofit.pojo.PrognosisHourly
+import com.example.weatherapplication.database.model.Forecast
+import com.example.weatherapplication.retrofit.repository.RepositoryFactory
+import com.example.weatherapplication.retrofit.WeatherCallback
+import com.example.weatherapplication.retrofit.repository.WeatherRepository
 import retrofit2.Call
 import retrofit2.Response
 import java.time.LocalDateTime
@@ -23,7 +23,9 @@ class ForecastService {
         latitude: Double,
         longitude: Double
     ) {
-        val call: Call<Prognosis> = weatherRepository.getCurrentForecast(latitude, longitude, IdentifierService.id)
+        val call: Call<Prognosis> = weatherRepository.getCurrentForecast(latitude, longitude,
+            IdentifierService.id
+        )
         val mappingFunction: (Response<Prognosis>, MutableState<Forecast?>) -> Unit =
             { response, data ->
                 if (response.body() != null) {
@@ -52,7 +54,9 @@ class ForecastService {
         latitude: Double,
         longitude: Double
     ) {
-        val call: Call<PrognosisHourly> = weatherRepository.getHourlyForecast(latitude, longitude, IdentifierService.id)
+        val call: Call<PrognosisHourly> = weatherRepository.getHourlyForecast(latitude, longitude,
+            IdentifierService.id
+        )
         val mappingFunction: (Response<PrognosisHourly>, SnapshotStateList<Forecast>) -> Unit =
             { response, data ->
                 if (response.body() != null) {

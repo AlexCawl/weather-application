@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapplication.R
-import com.example.weatherapplication.model.service.ConverterService
+import com.example.weatherapplication.service.ConverterService
 
 @Composable
 fun MainScreenTopBar(

@@ -7,8 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.weatherapplication.model.service.ConverterService
-import com.example.weatherapplication.vm.WeatherViewModel
+import com.example.weatherapplication.service.ConverterService
+import com.example.weatherapplication.android.WeatherViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalPagerApi::class)

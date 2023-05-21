@@ -1,4 +1,4 @@
-package com.example.weatherapplication.model.data
+package com.example.weatherapplication.database.model
 
 import java.time.LocalDateTime
 

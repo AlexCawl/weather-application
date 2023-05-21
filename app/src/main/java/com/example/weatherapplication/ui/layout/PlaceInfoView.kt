@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.weatherapplication.model.data.Position
+import com.example.weatherapplication.retrofit.pojo.Position
 
 @Composable
 fun PlaceInfoView(

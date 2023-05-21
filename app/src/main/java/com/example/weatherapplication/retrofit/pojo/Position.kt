@@ -1,4 +1,4 @@
-package com.example.weatherapplication.model.data
+package com.example.weatherapplication.retrofit.pojo
 
 import com.google.gson.annotations.SerializedName
 

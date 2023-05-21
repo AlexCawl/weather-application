@@ -1,4 +1,4 @@
-package com.example.weatherapplication.model.repository
+package com.example.weatherapplication.retrofit
 
 import android.util.Log
 import retrofit2.Call

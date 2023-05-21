@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.weatherapplication.model.data.Position
+import com.example.weatherapplication.retrofit.pojo.Position
 
 @Composable
 fun LocationItemsList(

@@ -1,10 +1,10 @@
-package com.example.weatherapplication.model.service
+package com.example.weatherapplication.service
 
 import android.util.Log
-import com.example.weatherapplication.model.data.Position
-import com.example.weatherapplication.model.exception.QueryValidationException
-import com.example.weatherapplication.model.repository.LocationRepository
-import com.example.weatherapplication.model.repository.RepositoryFactory
+import com.example.weatherapplication.retrofit.pojo.Position
+import com.example.weatherapplication.exception.QueryValidationException
+import com.example.weatherapplication.retrofit.repository.LocationRepository
+import com.example.weatherapplication.retrofit.repository.RepositoryFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,10 +1,4 @@
-package com.example.weatherapplication.model.dao
-
-import android.util.Log
-import com.example.weatherapplication.model.data.Forecast
-import com.example.weatherapplication.model.data.Position
-import com.example.weatherapplication.model.data.Location
-import java.time.LocalDateTime
+package com.example.weatherapplication.database
 
 /**
  * Mocked Database

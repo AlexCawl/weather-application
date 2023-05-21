@@ -1,4 +1,4 @@
-package com.example.weatherapplication.model.exception
+package com.example.weatherapplication.exception
 
 data class QueryValidationException(
     private val reason: String,

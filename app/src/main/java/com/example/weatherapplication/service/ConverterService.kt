@@ -1,8 +1,8 @@
-package com.example.weatherapplication.model.service
+package com.example.weatherapplication.service
 
 import com.example.weatherapplication.R
-import com.example.weatherapplication.model.data.Forecast
-import com.example.weatherapplication.model.data.Position
+import com.example.weatherapplication.database.model.Forecast
+import com.example.weatherapplication.retrofit.pojo.Position
 import java.time.LocalDateTime
 
 // TODO() parameters

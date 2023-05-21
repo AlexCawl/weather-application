@@ -1,14 +1,13 @@
-package com.example.weatherapplication.activity
+package com.example.weatherapplication.android
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.lifecycle.ViewModelProvider
-import com.example.weatherapplication.model.service.ConverterService
+import com.example.weatherapplication.service.ConverterService
 import com.example.weatherapplication.ui.screen.MainScreen
 import com.example.weatherapplication.ui.theme.WeatherApplicationTheme
-import com.example.weatherapplication.vm.WeatherViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 class MainActivity : ComponentActivity() {

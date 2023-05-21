@@ -1,4 +1,4 @@
-package com.example.weatherapplication.model.service
+package com.example.weatherapplication.service
 
 class IdentifierService {
     companion object {

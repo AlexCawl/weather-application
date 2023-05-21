@@ -1,7 +1,7 @@
-package com.example.weatherapplication.model.repository
+package com.example.weatherapplication.retrofit.repository
 
-import com.example.weatherapplication.model.data.Prognosis
-import com.example.weatherapplication.model.data.PrognosisHourly
+import com.example.weatherapplication.retrofit.pojo.Prognosis
+import com.example.weatherapplication.retrofit.pojo.PrognosisHourly
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -11,11 +11,11 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.weatherapplication.model.data.Position
+import com.example.weatherapplication.retrofit.pojo.Position
 import com.example.weatherapplication.ui.item.SearchItemsList
 import com.example.weatherapplication.ui.layout.SearchBarView
 import com.example.weatherapplication.ui.layout.SearchScreenTopBar
-import com.example.weatherapplication.vm.WeatherViewModel
+import com.example.weatherapplication.android.WeatherViewModel
 
 @Composable
 fun SearchScreen(

@@ -1,4 +1,4 @@
-package com.example.weatherapplication.vm
+package com.example.weatherapplication.android
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateMapOf
@@ -6,10 +6,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.lifecycle.ViewModel
-import com.example.weatherapplication.model.data.Location
-import com.example.weatherapplication.model.data.Position
-import com.example.weatherapplication.model.service.ForecastService
-import com.example.weatherapplication.model.service.LocationService
+import com.example.weatherapplication.database.model.Location
+import com.example.weatherapplication.retrofit.pojo.Position
+import com.example.weatherapplication.service.ForecastService
+import com.example.weatherapplication.service.LocationService
 
 class WeatherViewModel : ViewModel() {
     private val forecastService: ForecastService = ForecastService()

@@ -12,7 +12,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.weatherapplication.model.data.Forecast
+import com.example.weatherapplication.database.model.Forecast
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalMaterialApi
