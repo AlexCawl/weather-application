@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.weatherapplication.model.data.Forecast
 import com.google.accompanist.pager.ExperimentalPagerApi
-import kotlin.math.abs
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
@@ -22,8 +21,10 @@ import kotlin.math.abs
 fun ForecastItemsList(
     list: List<Forecast>,
     range: IntRange,
-    dateTimeRepresentationFunction: (Forecast) -> String,
-    minMaxTemperatureRepresentationFunction: (Forecast) -> Pair<String, String>
+    getDatetime: (Forecast) -> Pair<String, String>,
+    getTemperature: (Forecast) -> String,
+    getPrecipitation: (Forecast) -> String,
+    getIconID: (Forecast) -> Int
 ) {
     val content = mutableListOf<Forecast>()
     val indices = list.indices
@@ -40,37 +41,13 @@ fun ForecastItemsList(
             .padding(5.dp)
     ) {
         LazyColumn {
-            val (minTemp: Double, maxTemp: Double) = content.fold(
-                Pair(Double.MAX_VALUE, Double.MIN_VALUE)
-            ) { pair, forecast ->
-                when {
-                    forecast.temperatureMinimum < pair.first && forecast.temperatureMaximum > pair.second -> Pair(
-                        forecast.temperatureMinimum, forecast.temperatureMaximum
-                    )
-                    forecast.temperatureMinimum < pair.first -> Pair(
-                        forecast.temperatureMinimum, pair.second
-                    )
-                    forecast.temperatureMaximum > pair.second -> Pair(
-                        pair.first, forecast.temperatureMaximum
-                    )
-                    else -> pair
-                }
-            }
-            val sizeOfBar: Double = abs(maxTemp - minTemp)
-
             items(content) {
-                val time = dateTimeRepresentationFunction(it)
-                val temperature = minMaxTemperatureRepresentationFunction(it)
-                val progress: Pair<Float, Float> = Pair(
-                    (abs(it.temperatureMinimum - minTemp) / sizeOfBar).toFloat(),
-                    (abs(it.temperatureMaximum - minTemp) / sizeOfBar).toFloat()
-                )
                 ForecastItem(
-                    definition = time,
-                    temperatureMin = temperature.first,
-                    temperatureMax = temperature.second,
-                    barFillingData = progress,
-                    weatherTypeIconID = com.example.weatherapplication.R.drawable.round_cloud_24,
+                    datetime = getDatetime(it),
+                    temperature = getTemperature(it),
+                    precipitationProbability = getPrecipitation(it),
+                    barFillingPercent = it.precipitationProbability?.toFloat() ?: 0.0f,
+                    iconID = getIconID(it),
                 )
             }
         }

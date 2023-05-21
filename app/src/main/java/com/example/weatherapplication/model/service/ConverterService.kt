@@ -10,19 +10,12 @@ class ConverterService {
         return "${forecast.temperature.toInt()}°"
     }
 
-    fun getPairTemperature(forecast: Forecast): Pair<String, String> {
-        return Pair(
-            "${forecast.temperatureMinimum.toInt()}°",
-            "${forecast.temperatureMaximum.toInt()}°",
-        )
-    }
-
-    fun getTime(forecast: Forecast, withDays: Boolean = false): String {
+    fun getTime(forecast: Forecast): Pair<String, String> {
         val datetime = forecast.datetime
-        return when (withDays) {
-            true -> "${datetime.monthValue}.${datetime.dayOfMonth} ${datetime.hour}:${datetime.second}"
-            false -> "${datetime.hour}:${datetime.second}"
-        }
+        return Pair(
+            "${datetime.dayOfMonth} ${datetime.month.toString().lowercase().replaceFirstChar(Char::uppercaseChar)}",
+            "${datetime.hour}:${if (datetime.minute == 0) "00" else datetime.minute}"
+        )
     }
 
     fun getCityName(position: Position): String {
@@ -46,7 +39,7 @@ class ConverterService {
     }
 
     fun getPrecipitation(forecast: Forecast): String {
-        return "${forecast.precipitationProbability} %"
+        return "${((forecast.precipitationProbability ?: 0.0) * 100.0).toInt()} %"
     }
 
     fun getCloudiness(forecast: Forecast): String {

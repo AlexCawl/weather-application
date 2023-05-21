@@ -12,6 +12,7 @@ import com.example.weatherapplication.model.data.Forecast
 import com.example.weatherapplication.ui.item.ForecastItemsList
 import com.example.weatherapplication.ui.tab.ForecastTabContent
 import com.example.weatherapplication.ui.tab.ForecastTabSelector
+import com.example.weatherapplication.ui.theme.ComposableFunction
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 
@@ -20,47 +21,51 @@ import com.google.accompanist.pager.rememberPagerState
 @Composable
 fun ForecastInfoView(
     content: List<Forecast>,
-    dateTimeRepresentationFunction: (Forecast) -> String,
-    minMaxTemperatureRepresentationFunction: (Forecast) -> Pair<String, String>
+    getDatetime: (Forecast) -> Pair<String, String>,
+    getTemperature: (Forecast) -> String,
+    getPrecipitation: (Forecast) -> String,
+    getIconID: (Forecast) -> Int
 ) {
     val tabs = listOf(
         ForecastTabItem("Today") {
             ForecastItemsList(
                 list = content,
                 range = (0 until 8),
-                dateTimeRepresentationFunction = dateTimeRepresentationFunction,
-                minMaxTemperatureRepresentationFunction = minMaxTemperatureRepresentationFunction
+                getDatetime = getDatetime,
+                getTemperature = getTemperature,
+                getPrecipitation = getPrecipitation,
+                getIconID = getIconID
             )
         },
         ForecastTabItem("Tomorrow") {
             ForecastItemsList(
                 list = content,
                 range = (8 until 16),
-                dateTimeRepresentationFunction = dateTimeRepresentationFunction,
-                minMaxTemperatureRepresentationFunction = minMaxTemperatureRepresentationFunction
+                getDatetime = getDatetime,
+                getTemperature = getTemperature,
+                getPrecipitation = getPrecipitation,
+                getIconID = getIconID
             )
         },
         ForecastTabItem("Week") {
             ForecastItemsList(
                 list = content,
                 range = (16 until 40),
-                dateTimeRepresentationFunction = dateTimeRepresentationFunction,
-                minMaxTemperatureRepresentationFunction = minMaxTemperatureRepresentationFunction
+                getDatetime = getDatetime,
+                getTemperature = getTemperature,
+                getPrecipitation = getPrecipitation,
+                getIconID = getIconID
             )
         },
     )
     val pagerState = rememberPagerState(pageCount = tabs.size)
     Column {
         ForecastTabSelector(tabs = tabs, pagerState = pagerState)
-        Spacer(
-            modifier = Modifier
-                .height(5.dp)
-                .fillMaxWidth()
-        )
+        Spacer(modifier = Modifier.height(5.dp).fillMaxWidth())
         ForecastTabContent(pagerState = pagerState, tabs = tabs)
     }
 }
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
-class ForecastTabItem(val title: String, val screen: @Composable () -> Unit)
+class ForecastTabItem(val title: String, val screen: ComposableFunction)

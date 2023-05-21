@@ -17,15 +17,15 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 fun WeatherView(
     screenIdentifier: String,
     location: Location,
-    cityRepresentationFunction: (Position) -> String,
-    temperatureRepresentationFunction: (Forecast) -> String,
-    weatherTypeRepresentationFunction: (Forecast) -> String,
-    weatherSpeedRepresentationFunction: (Forecast) -> String,
-    humidityRepresentationFunction: (Forecast) -> String,
-    cloudinessRepresentationFunction: (Forecast) -> String,
-    dateTimeRepresentationFunction: (Forecast) -> String,
-    minMaxTemperatureRepresentationFunction: (Forecast) -> Pair<String, String>,
-    iconRepresentationFunction: (Forecast) -> Int
+    getCity: (Position) -> String,
+    getTemperature: (Forecast) -> String,
+    getWeatherType: (Forecast) -> String,
+    getWindSpeed: (Forecast) -> String,
+    getHumidity: (Forecast) -> String,
+    getCloudiness: (Forecast) -> String,
+    getDatetime: (Forecast) -> Pair<String, String>,
+    getPrecipitation: (Forecast) -> String,
+    getIconID: (Forecast) -> Int
 ) {
     val place = remember { location.position }
     val currentForecast = remember { location.currentWeather }
@@ -36,13 +36,13 @@ fun WeatherView(
             modifier = Modifier.padding(15.dp)
         ) {
             PlaceInfoView(
-                position = place.value, cityRepresentationFunction = cityRepresentationFunction
+                position = place.value, cityRepresentationFunction = getCity
             )
             TemperatureInfoView(
                 forecast = currentForecast.value!!,
-                temperatureRepresentationFunction = temperatureRepresentationFunction,
-                weatherTypeRepresentationFunction = weatherTypeRepresentationFunction,
-                iconRepresentationFunction = iconRepresentationFunction
+                temperatureRepresentationFunction = getTemperature,
+                weatherTypeRepresentationFunction = getWeatherType,
+                iconRepresentationFunction = getIconID
             )
             Spacer(
                 modifier = Modifier
@@ -51,9 +51,9 @@ fun WeatherView(
             )
             WeatherInfoView(
                 forecast = currentForecast.value!!,
-                weatherSpeedRepresentationFunction = weatherSpeedRepresentationFunction,
-                humidityRepresentationFunction = humidityRepresentationFunction,
-                cloudinessRepresentationFunction = cloudinessRepresentationFunction
+                weatherSpeedRepresentationFunction = getWindSpeed,
+                humidityRepresentationFunction = getHumidity,
+                cloudinessRepresentationFunction = getCloudiness
             )
             Spacer(
                 modifier = Modifier
@@ -62,8 +62,10 @@ fun WeatherView(
             )
             ForecastInfoView(
                 content = futureForecast,
-                dateTimeRepresentationFunction = dateTimeRepresentationFunction,
-                minMaxTemperatureRepresentationFunction = minMaxTemperatureRepresentationFunction
+                getDatetime = getDatetime,
+                getTemperature = getTemperature,
+                getPrecipitation = getPrecipitation,
+                getIconID = getIconID
             )
         }
     }

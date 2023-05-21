@@ -31,15 +31,15 @@ fun WeatherScreen(
         {
             WeatherView(
                 screenIdentifier = pair.key, location = pair.value,
-                cityRepresentationFunction = { converter.getCityName(it) },
-                temperatureRepresentationFunction = { converter.getTemperature(it) },
-                weatherTypeRepresentationFunction = { converter.getWeatherType(it) },
-                weatherSpeedRepresentationFunction = { converter.getWeatherSpeed(it) },
-                humidityRepresentationFunction = { converter.getHumidity(it) },
-                cloudinessRepresentationFunction = { converter.getCloudiness(it) },
-                dateTimeRepresentationFunction = { converter.getTime(it) },
-                minMaxTemperatureRepresentationFunction = { converter.getPairTemperature(it) },
-                iconRepresentationFunction = { converter.getIconID(it) }
+                getCity = { converter.getCityName(it) },
+                getTemperature = { converter.getTemperature(it) },
+                getWeatherType = { converter.getWeatherType(it) },
+                getWindSpeed = { converter.getWeatherSpeed(it) },
+                getHumidity = { converter.getHumidity(it) },
+                getCloudiness = { converter.getCloudiness(it) },
+                getDatetime = { converter.getTime(it) },
+                getPrecipitation = { converter.getPrecipitation(it) },
+                getIconID = { converter.getIconID(it) }
             )
         }
     }

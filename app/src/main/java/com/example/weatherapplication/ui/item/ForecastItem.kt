@@ -1,5 +1,6 @@
 package com.example.weatherapplication.ui.item
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,16 +13,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.weatherapplication.ui.layout.GradientBarView
 
 @Composable
 fun ForecastItem(
-    definition: String,
-    temperatureMin: String,
-    temperatureMax: String,
-    barFillingData: Pair<Float, Float>,
-    weatherTypeIconID: Int
+    datetime: Pair<String, String>,
+    temperature: String,
+    precipitationProbability: String,
+    barFillingPercent: Float,
+    @DrawableRes iconID: Int
 ) {
     Row(
         modifier = Modifier
@@ -32,42 +35,65 @@ fun ForecastItem(
             .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(
-            modifier = Modifier.width(100.dp),
-            text = definition,
-            color = MaterialTheme.colors.onBackground,
-        )
-        Row(
-            modifier = Modifier.width(160.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier.width(130.dp)
         ) {
             Text(
-                text = temperatureMin,
-                color = MaterialTheme.colors.onSurface,
-                modifier = Modifier.width(30.dp),
-                textAlign = TextAlign.End,
-            )
-            GradientBarView(
-                indent = barFillingData.first,
-                progress = barFillingData.second,
-                modifier = Modifier
-                    .width(100.dp)
-                    .fillMaxHeight()
-                    .padding(10.dp)
+                text = datetime.first,
+                color = MaterialTheme.colors.onBackground,
+                overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = temperatureMax,
+                text = datetime.second,
                 color = MaterialTheme.colors.onBackground,
-                modifier = Modifier.width(30.dp),
-                textAlign = TextAlign.Start
+                overflow = TextOverflow.Ellipsis
             )
         }
-        Spacer(modifier = Modifier.weight(1f, true))
-        Icon(
-            imageVector = ImageVector.vectorResource(id = weatherTypeIconID),
-            contentDescription = null,
-            tint = MaterialTheme.colors.onBackground
+        Text(
+            text = temperature,
+            modifier = Modifier
+                .width(50.dp)
+                .fillMaxHeight()
+                .background(
+                    color = MaterialTheme.colors.background,
+                    shape = RoundedCornerShape(15.dp)
+                )
+                .wrapContentHeight(),
+            fontSize = 20.sp,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center
         )
+        Spacer(modifier = Modifier.weight(1f, true))
+        Column(
+            modifier = Modifier.width(100.dp).fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth().height(30.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = precipitationProbability,
+                    fontSize = 20.sp,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center
+                )
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = iconID),
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.onBackground,
+                    modifier = Modifier.width(30.dp).height(30.dp)
+                )
+            }
+            GradientBarView(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(5.dp)
+                    .padding(horizontal = 5.dp),
+                progress = barFillingPercent
+            )
+        }
     }
 }
