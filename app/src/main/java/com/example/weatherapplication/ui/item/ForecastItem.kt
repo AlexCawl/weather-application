@@ -65,35 +65,33 @@ fun ForecastItem(
         )
         Spacer(modifier = Modifier.weight(1f, true))
         Column(
-            modifier = Modifier.width(100.dp).fillMaxHeight(),
+            modifier = Modifier
+                .width(100.dp)
+                .fillMaxHeight()
+                .background(color = MaterialTheme.colors.background, shape = RoundedCornerShape(15.dp))
+                .padding(10.dp),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth().height(30.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = precipitationProbability,
-                    fontSize = 20.sp,
-                    overflow = TextOverflow.Ellipsis,
-                    textAlign = TextAlign.Center
-                )
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = iconID),
-                    contentDescription = null,
-                    tint = MaterialTheme.colors.onBackground,
-                    modifier = Modifier.width(30.dp).height(30.dp)
-                )
-            }
             GradientBarView(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(5.dp)
-                    .padding(horizontal = 5.dp),
+                    .height(5.dp),
                 progress = barFillingPercent
             )
+            Text(
+                text = precipitationProbability,
+                fontSize = 16.sp,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center
+            )
         }
+        Spacer(modifier = Modifier.weight(1f, true))
+        Icon(
+            imageVector = ImageVector.vectorResource(id = iconID),
+            contentDescription = null,
+            tint = MaterialTheme.colors.onBackground,
+            modifier = Modifier.width(50.dp).height(50.dp)
+        )
     }
 }

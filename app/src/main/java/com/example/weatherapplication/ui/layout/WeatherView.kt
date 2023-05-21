@@ -15,7 +15,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @ExperimentalPagerApi
 @Composable
 fun WeatherView(
-    screenIdentifier: String,
     location: Location,
     getCity: (Position) -> String,
     getTemperature: (Forecast) -> String,

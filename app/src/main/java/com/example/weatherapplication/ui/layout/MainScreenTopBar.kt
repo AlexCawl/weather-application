@@ -12,13 +12,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapplication.R
+import com.example.weatherapplication.model.service.ConverterService
 
 @Composable
 fun MainScreenTopBar(
+    converter: ConverterService,
     onClickRefreshEvent: () -> Unit,
     onClickOptionsEvent: () -> Unit,
 ) {
-    val datetime: String = "12 September, Sunday"
+    val datetime: String = converter.getTime()
     TopAppBar(
         contentPadding = PaddingValues(5.dp),
         backgroundColor = MaterialTheme.colors.background,

@@ -1,8 +1,10 @@
 package com.example.weatherapplication.ui.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
@@ -40,7 +42,8 @@ fun SearchScreen(
                 focusedColor = MaterialTheme.colors.onBackground,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(5.dp),
+                    .padding(5.dp)
+                    .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(5.dp)),
                 onClearClickedEvent = { hints.clear() }
             )
             SearchItemsList(

@@ -3,9 +3,23 @@ package com.example.weatherapplication.model.service
 import com.example.weatherapplication.R
 import com.example.weatherapplication.model.data.Forecast
 import com.example.weatherapplication.model.data.Position
+import java.time.LocalDateTime
 
 // TODO() parameters
 class ConverterService {
+    private val time: LocalDateTime = LocalDateTime.now()
+    fun getTime(): String {
+        return "${
+            time.dayOfMonth
+        } ${
+            time.month.toString().lowercase().replaceFirstChar(Char::uppercaseChar)
+        } ${
+            time.year
+        }, ${
+            time.dayOfWeek.toString().lowercase().replaceFirstChar(Char::uppercaseChar)
+        }"
+    }
+
     fun getTemperature(forecast: Forecast): String {
         return "${forecast.temperature.toInt()}°"
     }
@@ -13,8 +27,9 @@ class ConverterService {
     fun getTime(forecast: Forecast): Pair<String, String> {
         val datetime = forecast.datetime
         return Pair(
-            "${datetime.dayOfMonth} ${datetime.month.toString().lowercase().replaceFirstChar(Char::uppercaseChar)}",
-            "${datetime.hour}:${if (datetime.minute == 0) "00" else datetime.minute}"
+            "${datetime.dayOfMonth} ${
+                datetime.month.toString().lowercase().replaceFirstChar(Char::uppercaseChar)
+            }", "${datetime.hour}:${if (datetime.minute == 0) "00" else datetime.minute}"
         )
     }
 
@@ -23,9 +38,7 @@ class ConverterService {
     }
 
     fun getWeatherType(forecast: Forecast): String {
-        return forecast.weatherDescription
-            .split("\\W+".toRegex())
-            .joinToString(" ") {
+        return forecast.weatherDescription.split("\\W+".toRegex()).joinToString(" ") {
                 it.replaceFirstChar(Char::uppercaseChar)
             }
     }

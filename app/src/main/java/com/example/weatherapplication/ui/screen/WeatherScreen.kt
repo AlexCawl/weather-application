@@ -30,7 +30,7 @@ fun WeatherScreen(
     val content: List<ComposableFunction> = resources.map { pair ->
         {
             WeatherView(
-                screenIdentifier = pair.key, location = pair.value,
+                location = pair.value,
                 getCity = { converter.getCityName(it) },
                 getTemperature = { converter.getTemperature(it) },
                 getWeatherType = { converter.getWeatherType(it) },
@@ -47,7 +47,7 @@ fun WeatherScreen(
 
     Scaffold(
         topBar = {
-            MainScreenTopBar(onClickRefreshEvent, onClickOptionsEvent)
+            MainScreenTopBar(converter, onClickRefreshEvent, onClickOptionsEvent)
         }
     ) {
         HorizontalPager(

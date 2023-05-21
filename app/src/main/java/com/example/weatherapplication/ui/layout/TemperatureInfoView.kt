@@ -25,13 +25,12 @@ fun TemperatureInfoView(
     val iconID: Int = iconRepresentationFunction(forecast)
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.padding(start = 50.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -47,7 +46,6 @@ fun TemperatureInfoView(
                 color = MaterialTheme.colors.onSurface
             )
         }
-        Spacer(modifier = Modifier.weight(1f))
         Icon(
             modifier = Modifier.size(150.dp),
             painter = painterResource(id = iconID),
